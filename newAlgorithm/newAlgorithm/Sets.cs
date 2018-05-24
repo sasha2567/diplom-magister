@@ -38,26 +38,6 @@ namespace newAlgorithm
         }
 
         /// <summary>
-        /// Возвращяет количество сформированных комплектов для текущего состава партий
-        /// </summary>
-        /// <returns>количество сформированных комплектов для текущего состава партий</returns>
-        public int CountReadySets()
-        {
-            int res = 0;
-            foreach (var row in _readySets)
-            {
-                foreach (var elem in row)
-                {
-                    if (elem.IsSetAllComposition())
-                    {
-                        res++;
-                    }
-                }
-            }
-            return res;
-        }
-        
-        /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
@@ -68,7 +48,6 @@ namespace newAlgorithm
             {
                 foreach (var elem in row)
                 {
-                    //res += elem.GetTime();
                     if (res < elem.GetTime())
                     {
                         res = elem.GetTime();

@@ -41,24 +41,16 @@ namespace newAlgorithm
                 return new SheduleElement(batch, type, time);
             }
             var difference = 0;
-            if (batch >= _composition[type])
+            if (batch >= _composition[type] - _readyComposition[type])
             {
                 difference = batch - _composition[type];
                 _readyComposition[type] = _composition[type];
-                _time = time[_composition[type] - 1];
-                for (int i = 0; i < _composition[type]; i++)
-                {
-                    time.RemoveAt(0);
-                }
+                _time = time[time.Count - 1];
             }
             else
             {
                 _readyComposition[type] += batch;
-                _time = time[batch - 1];
-                for (int i = 0; i < batch; i++)
-                {
-                    time.RemoveAt(0);
-                }
+                _time = time[time.Count - 1];
             }
             return new SheduleElement(difference, type, time);
         }
@@ -69,10 +61,6 @@ namespace newAlgorithm
         /// <returns></returns>
         public bool IsSetAllComposition()
         {
-            if (_time > _compositionTime)
-            {
-                return false;
-            }
             for(int i = 0; i < _composition.Count; i++)
             {
                 if (_readyComposition[i] != _composition[i]) return false;
@@ -80,6 +68,10 @@ namespace newAlgorithm
             return true;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public int GetTime()
         {
             return this._time;

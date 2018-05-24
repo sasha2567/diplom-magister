@@ -373,7 +373,7 @@ namespace newAlgorithm
                 var timelist = listint.Select(list => list.GetTime());
                     FitnessList.Add(timelist.Min());
                 test.GetSolution(listint[timelist.ToList().IndexOf(timelist.Min())].RetyrnR());
-                    CountKit.Add(test.CountReadySets());
+                    CountKit.Add(test.GetCriterion());
                 
             }
             _fitnesslist = FitnessList;

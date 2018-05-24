@@ -373,14 +373,14 @@ namespace newAlgorithm
                                     fileOut.WriteLine();
                                 }
                             }
-
+                            fileOut.WriteLine("{-------------------------------------------------------------}");
                         }
+                        fileOut.WriteLine("/-------------------------------------------------------------/");
                     }
                 }
                 fileOut.Close();
             }
-                        
-            MessageBox.Show("Все сделяль, Насяника");
+            MessageBox.Show("Тестовый прогон завершен");
         }
 
         private void button5_Click(object sender, EventArgs e)

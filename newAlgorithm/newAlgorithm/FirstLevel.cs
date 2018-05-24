@@ -542,7 +542,7 @@ namespace newAlgorithm
                                 shedule.ConstructShedule();
                                 r = shedule.RetyrnR();
                                 sets.GetSolution(r);
-                                time = sets.CountReadySets();
+                                time = sets.GetCriterion();
                                 var fBuf = time;// shedule.GetTime();
                                 s = PrintA(tempA);
                                 f.Write(s + " - " + fBuf);
