@@ -358,7 +358,7 @@ namespace newAlgorithm
             }
 
             var test = new Sets(CompositionSets, TimeSets);
-            List<int> CountKit = new List<int>();
+            List<int> CountTime = new List<int>();
             var GaaSecondLevel = new GaaSecondLevel();
             foreach (var elem in r)
             {
@@ -373,11 +373,11 @@ namespace newAlgorithm
                 var timelist = listint.Select(list => list.GetTime());
                     FitnessList.Add(timelist.Min());
                 test.GetSolution(listint[timelist.ToList().IndexOf(timelist.Min())].RetyrnR());
-                    CountKit.Add(test.GetCriterion());
+                    CountTime.Add(test.GetNewCriterion());
                 
             }
             _fitnesslist = FitnessList;
-            return CountKit.ToArray();
+            return CountTime.ToArray();
         }
 
 

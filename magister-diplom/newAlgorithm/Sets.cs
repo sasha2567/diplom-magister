@@ -12,7 +12,6 @@ namespace newAlgorithm
         private readonly List<List<int>> _composition;
         private readonly List<List<int>> _time;
         private List<List<Kit>> _readySets;
-        private int _newIndexForAddKit;
 
         /// <summary>
         /// 
@@ -22,7 +21,6 @@ namespace newAlgorithm
         /// <param name="time"></param>
         public Sets(List<List<int>> composition, List<List<int>> time)
         {
-            _newIndexForAddKit = 0;
             _types = composition.Count;
             _composition = composition;
             _time = time;
@@ -38,7 +36,28 @@ namespace newAlgorithm
         }
 
         /// <summary>
-        /// 
+        /// Новый критерий
+        /// </summary>
+        /// <returns></returns>
+        public int GetNewCriterion()
+        {
+            int res = 0;
+            foreach (var row in _readySets)
+            {
+                foreach (var elem in row)
+                {
+                    res += elem.GetTime();
+                    if (res < elem.GetTime())
+                    {
+                        res = elem.GetTime();
+                    }
+                }
+            }
+            return res;
+        }
+
+        /// <summary>
+        /// Старый критерий
         /// </summary>
         /// <returns></returns>
         public int GetCriterion()
@@ -66,18 +85,29 @@ namespace newAlgorithm
         /// <returns></returns>
         protected void AddBatches(SheduleElement sheduleElement)
         {
+            var sets = new List<Kit>();
             foreach (var row in _readySets)
             {
                 foreach (var elem in row)
                 {
-                    if (!elem.IsSetAllComposition())
-                    {
-                        sheduleElement = elem.AddBatch(sheduleElement.getValue(), sheduleElement.getType(), sheduleElement.getTime());
-                    }
-                    if (sheduleElement.getValue() <= 0)
-                    {
-                        return;
-                    }
+                    sets.Add(elem);
+                }
+            }
+
+            sets.Sort(
+                (Kit kit1, Kit kit2) => kit1.CompareTo(kit2)
+                
+            );
+
+            foreach (var elem in sets)
+            {
+                if (!elem.IsSetAllComposition())
+                {
+                    sheduleElement = elem.AddBatch(sheduleElement.getValue(), sheduleElement.getType(), sheduleElement.getTime());
+                }
+                if (sheduleElement.getValue() <= 0)
+                {
+                    return;
                 }
             }
         }

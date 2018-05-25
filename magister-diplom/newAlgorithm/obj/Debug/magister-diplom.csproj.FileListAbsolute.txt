@@ -1,0 +1,9 @@
+D:\Универ\Диплом\magister-diplom\newAlgorithm\bin\Debug\newAlgorithm.exe.config
+D:\Универ\Диплом\magister-diplom\newAlgorithm\obj\Debug\newAlgorithm.exe
+D:\Универ\Диплом\magister-diplom\newAlgorithm\obj\Debug\newAlgorithm.pdb
+D:\Универ\Диплом\magister-diplom\newAlgorithm\bin\Debug\newAlgorithm.exe
+D:\Универ\Диплом\magister-diplom\newAlgorithm\bin\Debug\newAlgorithm.pdb
+D:\Универ\Диплом\magister-diplom\newAlgorithm\obj\Debug\magister-diplom.csprojResolveAssemblyReference.cache
+D:\Универ\Диплом\magister-diplom\newAlgorithm\obj\Debug\newAlgorithm.Form1.resources
+D:\Универ\Диплом\magister-diplom\newAlgorithm\obj\Debug\newAlgorithm.Properties.Resources.resources
+D:\Универ\Диплом\magister-diplom\newAlgorithm\obj\Debug\magister-diplom.csproj.GenerateResource.Cache

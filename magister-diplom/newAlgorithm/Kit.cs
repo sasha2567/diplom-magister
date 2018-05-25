@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace newAlgorithm
 {
-    class Kit
+    class Kit : IComparable
     {
         private readonly List<int> _composition;
         private List<int> _readyComposition;
         private int _time;
         private int _compositionTime;
+        private double _criterion;
 
         /// <summary>
         /// 
@@ -22,10 +23,22 @@ namespace newAlgorithm
             _composition = composition;
             _compositionTime = compositionTime;
             _readyComposition = new List<int>();
-            for (int i = 0; i < composition.Count; i++)
+            _criterion = 0;
+            var max = 0;
+            var min = 100000;
+            foreach (var elem in composition)
             {
                 _readyComposition.Add(0);
+                if (elem > max)
+                {
+                    max = elem;
+                }
+                if (elem < min)
+                {
+                    min = elem;
+                }
             }
+            _criterion = (max - min) / max;
         }
 
         /// <summary>
@@ -56,7 +69,7 @@ namespace newAlgorithm
         }
 
         /// <summary>
-        /// 
+        /// Проверка заполнености комплекта
         /// </summary>
         /// <returns></returns>
         public bool IsSetAllComposition()
@@ -69,12 +82,31 @@ namespace newAlgorithm
         }
 
         /// <summary>
-        /// 
+        /// Получение времени формирования комплекта
         /// </summary>
         /// <returns></returns>
         public int GetTime()
         {
             return this._time;
+        }
+
+        /// <summary>
+        /// Получение критерия комплекта
+        /// </summary>
+        /// <returns></returns>
+        public double GetCriterion()
+        {
+            return _criterion;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="kit"></param>
+        /// <returns></returns>
+        public int CompareTo(object kit)
+        {
+            return _criterion > ((Kit)kit)._criterion ? 1 : _criterion < ((Kit)kit)._criterion ? -1 : 0;
         }
     }
 }
