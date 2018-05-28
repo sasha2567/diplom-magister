@@ -90,6 +90,11 @@ namespace newAlgorithm
             return this._time;
         }
 
+        public int GetCompositionTime()
+        {
+            return _compositionTime;
+        }
+
         /// <summary>
         /// Получение критерия комплекта
         /// </summary>

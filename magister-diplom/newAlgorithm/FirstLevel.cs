@@ -468,15 +468,18 @@ namespace newAlgorithm
             }
             var shedule = new Shedule(tempA);
             shedule.ConstructShedule();
-            var fBuf = shedule.GetTime();
+            var r = shedule.RetyrnR();
+            var sets = new Sets(Form1.compositionSets, Form1.timeSets);
+            sets.GetSolution(r);
+            var time = sets.GetNewCriterion(Form1.direct);
             var s = PrintA(tempA);
             //f.Write(s + " - " + fBuf);
             //MessageBox.Show(s + " Время обработки " + fBuf);
-            if (fBuf < _f1Buf)
+            if (time < _f1Buf)
             {
                 _abuf = CopyMatrix(tempA);
                 _typeSolutionFlag = true;
-                _f1Buf = fBuf;
+                _f1Buf = time;
                 //file.Write(" +");
             }
             //f.WriteLine();
@@ -497,7 +500,7 @@ namespace newAlgorithm
                 shedule.ConstructShedule();
                 var r = shedule.RetyrnR();
                 sets.GetSolution(r);
-                var time = sets.GetNewCriterion();
+                var time = sets.GetNewCriterion(Form1.direct);
                 var _f1 = time;
                 _f1Buf = _f1;
                 result[0] = _f1Buf;
@@ -539,8 +542,9 @@ namespace newAlgorithm
                                 shedule = new Shedule(tempA);
                                 shedule.ConstructShedule();
                                 r = shedule.RetyrnR();
+                                sets = new Sets(Form1.compositionSets, Form1.timeSets);
                                 sets.GetSolution(r);
-                                time = sets.GetNewCriterion();
+                                time = sets.GetNewCriterion(Form1.direct);
                                 s = PrintA(tempA);
                                 f.Write(s + " - " + time);
                                 if (time < _f1Buf)

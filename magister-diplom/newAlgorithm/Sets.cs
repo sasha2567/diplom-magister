@@ -39,21 +39,41 @@ namespace newAlgorithm
         /// Новый критерий
         /// </summary>
         /// <returns></returns>
-        public int GetNewCriterion()
+        public int GetNewCriterion(bool direct)
         {
-            int res = 0;
-            foreach (var row in _readySets)
+            if (direct)
             {
-                foreach (var elem in row)
+                int res = 0;
+                foreach (var row in _readySets)
                 {
-                    res += elem.GetTime();
-                    if (res < elem.GetTime())
+                    foreach (var elem in row)
                     {
-                        res = elem.GetTime();
+                        if (elem.GetTime() > elem.GetCompositionTime())
+                        {
+                            res += elem.GetTime() - elem.GetCompositionTime();
+                        }
                     }
                 }
+                return res;
             }
-            return res;
+            else
+            {
+                int res = 0;
+                var count = 0;
+                foreach (var row in _readySets)
+                {
+                    count += row.Count;
+                    foreach (var elem in row)
+                    {
+                        res += elem.GetTime();
+                        if (res < elem.GetTime())
+                        {
+                            res = elem.GetTime();
+                        }
+                    }
+                }
+                return (int)(res / count);
+            }
         }
 
         /// <summary>
