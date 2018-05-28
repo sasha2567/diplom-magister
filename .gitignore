@@ -1,8 +1,9 @@
-﻿/**/bin/Debug/
-/**/bin/Debug/*.txt
-/**/bin/Debug/*.pdb
-/**/bin/Debug/*.suo
-/**/bin/Debug/*.ide
-/**/bin/Debug/test/
+﻿/**/Debug/
+/**/Debug/*.txt
+/**/Debug/*.pdb
+/**/Debug/*.suo
+/**/Debug/*.ide
+/**/Debug/*.csproj
+/**/Debug/test/
 /.vs
 *.cache
