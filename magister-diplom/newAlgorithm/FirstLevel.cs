@@ -12,7 +12,7 @@ namespace newAlgorithm
         private List<List<int>> _abuf;                  // Буферизированная матрица составов партий требований на k+1 шаге
         private List<List<List<int>>> _a1;              // Матрица составов партий требований на k+1 шаге 
         private List<List<List<int>>> _a2;              // Матрица составов партий требований фиксированного типа
-        private List<List<int>> _a;                     // Матрица составов партий требований на k шаге
+        public List<List<int>> _a { get; private set; }                     // Матрица составов партий требований на k шаге
         private readonly int _countType;                // Количество типов
         private readonly List<int> _countClaims;        // Начальное количество требований для каждого типа данных
         private int _f1;                                // Критерий текущего решения для всех типов

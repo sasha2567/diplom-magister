@@ -15,7 +15,8 @@ namespace newAlgorithm
         private List<List<int>> A;
         public static int countL = 4;
         public static int Tz = 80;//вот здесь надо менять время обработки при 40 оно успеваетполностьюобработать все партии
-        public int[] Prostoi = new int[4];   
+        public int[] Prostoi = new int[4];
+        public List<List<List<int>>> PartyList = new List<List<List<int>>>();
         public OldSecondLevel()
         {
             this.groups = new Groups(5);
@@ -31,6 +32,50 @@ namespace newAlgorithm
             this.groups.Set_I2(j);//допустим 
             this.groups.Set_M(j);//допустим 
             this.Q.Set_M(1);//допустим
+        }
+
+        public List<int> CalcFitnessList(List<List<int>> r)
+        {
+            List<int> fitnessList = new List<int>();
+            PartyList.Add(new List<List<int>>{new List<int>()});
+            var countParty = 0;
+            var timeList = new List<int>();
+            var timeListResult = new List<int>();
+            var time = 0;
+            foreach (var type in r)
+            {
+                foreach (var party in type)
+                {
+                    PartyList[countParty][r.IndexOf(type)].Add(party);
+                    time += new Shedule(PartyList[countParty]).GetTime();
+
+                    foreach (var batch in PartyList[countParty])
+                    {
+                        if (batch.Count == 0)
+                        {
+                            batch.Add(2);
+                        }
+                    }
+                    timeList.Add(time);
+                    if (time >= Tz)
+                    {
+                        timeList.RemoveAt(timeList.Count - 1);
+                        timeListResult.Add(timeList.Last());
+                        PartyList.Add(new List<List<int>>());
+                        PartyList[countParty][r.IndexOf(type)].Remove(PartyList[countParty][r.IndexOf(type)].Last());
+                        countParty++;
+
+                        while (PartyList[countParty].Count <= r.IndexOf(type))
+                        {
+                            PartyList[countParty].Add(new List<int>());
+                        }
+                        PartyList[countParty][r.IndexOf(type)].Add(party);
+                        time = 0;
+                    }
+                }
+                PartyList[countParty].Add( new List<int>());
+            }
+            return timeListResult;
         }
 
         private List<List<int>> BuildR(List<List<int>> N)

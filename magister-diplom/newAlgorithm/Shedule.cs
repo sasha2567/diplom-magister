@@ -31,7 +31,7 @@ namespace newAlgorithm
         private List<List<int>> GenerateR(IReadOnlyList<List<int>> m)
         {
             var result = new List<List<int>>();
-            var summ = m.Sum(t => t.Count);
+            var summ = m.Sum(t => t?.Count ?? 0);
             var maxColumn = 0;
             for (var j = 0; j < summ; j++)
             {
@@ -90,6 +90,8 @@ namespace newAlgorithm
                 for (var k = 0; k < _r.Count; k++)//количество партий
                 {
                     var ind = ReturnRIndex(k);
+                    //if(ind == -1)
+                    //    continue;
                     _startProcessing[i].Add(new List<int>());
                     _endProcessing[i].Add(new List<int>());
                     for (var p = 0; p < _r[k][ind]; p++)//количество требований
@@ -259,6 +261,7 @@ namespace newAlgorithm
 
         public int GetTime()
         {
+            ConstructShedule();
             return _timeConstructShedule;
         }
     }

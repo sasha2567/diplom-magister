@@ -145,7 +145,7 @@ namespace newAlgorithm
 
         private void button1_Click(object sender, EventArgs e)
         {
-            _countType = (int)numericUpDown1.Value;
+             _countType = (int)numericUpDown1.Value;
             _countBatches = Convert.ToInt32(countBatchesTB.Text);
             var listCountButches = new List<int>();
             for (var ii = 0; ii < _countType; ii++)
@@ -166,44 +166,89 @@ namespace newAlgorithm
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Shedule.L = _l;
-            Shedule.Switching = _temptS;
-            Shedule.Treatment = _temptT;
-            _countType = (int)numericUpDown1.Value;
-            _countBatches = Convert.ToInt32(countBatchesTB.Text);
-            var listCountButches = new List<int>();
-            for (var ii = 0; ii < _countType; ii++)
-            {
-                listCountButches.Add(_countBatches);
-            }
-            var gaa = new GAA(_countType, listCountButches, checkBox1.Checked);
-            gaa.SetXrom((int)numericUpDown2.Value);
-            gaa.calcFitnessList();
-            int s;
-           var result= gaa.getSelectionPopulation(_selectionType,out s);
+            int[] N_komplect_type = {2};
+            int[] N_komplect_for_type = {2, 4};
+            int[] N_komplect_sostav = {2, 4};
+            int[] n = {5, 10};
+            int[] l = {5, 10};
+            int[] time = {2, 4, 8, 16, 32};
 
-            using (var file = new StreamWriter("outputGAA.txt",true))
+            foreach (var n_kom in N_komplect_type)
             {
-                int i = 0;
-                foreach (var elem in gaa.nabor)
-                {                   
-                    foreach (var elem2 in elem.GenList)
+                compositionSets = new List<List<int>>();
+                timeSets = new List<List<int>>();
+                foreach (var n_kom_q in N_komplect_for_type)
+                {
+                    for (int i = 0; i < n_kom; i++)
                     {
-                        foreach (var elem3 in elem2)
+                        compositionSets.Add(new List<int>());
+                        timeSets.Add(new List<int>());
+                        for (int j = 0; j < n_kom_q; j++)
                         {
-                            file.Write(elem3 + " ");
+                            timeSets[i].Add(140);
                         }
-                        file.WriteLine();
                     }
-                    file.WriteLine("_________________________");
-                    file.WriteLine(gaa._fitnesslist[i]);
-                    file.WriteLine("_________________________");
-                    i++;
+
+                    foreach (var n_kom_s in N_komplect_sostav)
+                    {
+                        foreach (var t in n)
+                        {
+                            _countType = t;
+                            for (int i = 0; i < n_kom; i++)
+                            {
+                                for (var ind = 0; ind < _countType; ind++)
+                                {
+                                    compositionSets[i].Add(n_kom_s);
+                                }
+                            }
+
+                            foreach (var _countLine in l)
+                            {
+                                foreach (var t2 in time)
+                                {
+                                    foreach (var t3 in time)
+                                    {
+                                        _temptS = new List<List<List<int>>>();
+                                        _temptT = new List<List<int>>();
+                                        _l = _countLine;
+                                        _maxS = t3;
+                                        _maxT = t2;
+                                        RandomTime();
+                                        PrintTime();
+                                        GetTime();
+                                        Shedule.L = _countLine;
+                                        Shedule.Switching = _temptS;
+                                        Shedule.Treatment = _temptT;
+                                        var listCountButches = new List<int>();
+                                        for (var ii = 0; ii < _countType; ii++)
+                                        {
+                                            listCountButches.Add(0);
+                                        }
+
+                                        for (var ii = 0; ii < _countType; ii++)
+                                        {
+                                            _countBatches = 0;
+                                            for (int i = 0; i < n_kom; i++)
+                                            {
+                                                _countBatches += compositionSets[i][ii] * n_kom_q;
+                                            }
+
+                                            listCountButches[ii] = _countBatches;
+                                        }
+
+                                        var gaa = new GAA(_countType, listCountButches, checkBox1.Checked);
+                                        gaa.SetXrom((int) numericUpDown2.Value);
+                                        gaa.calcSetsFitnessList(compositionSets, timeSets);
+                                        int s;
+                                        var result = gaa.getSelectionPopulation(_selectionType, out s);
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
-                file.WriteLine("***************************");
-                file.WriteLine(result);
-                file.WriteLine("***************************");
             }
+
             MessageBox.Show("Данные успешно записаны", "Учпешное завершение", MessageBoxButtons.OK);
         }
             
@@ -288,6 +333,82 @@ namespace newAlgorithm
         private void button6_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void OldSecondLevelButton_Click(object sender, EventArgs e)
+        {
+            var result = new List<int>();
+            var massi = new[] { 8, 12, 16, 24, 32 };
+            foreach (var intt in massi)
+            {
+                timeSwitchingTB.Text = intt.ToString();
+                var mass= new[] { 8, 12, 16, 24, 32 };
+                foreach (var item in massi)
+                {
+                    timeTreatmentingTB.Text = item.ToString();
+                    _countType = (int) numericUpDown1.Value;
+                    _countBatches = Convert.ToInt32(countBatchesTB.Text);
+
+                    var listCountButches = new List<int>();
+                    for (var ii = 0; ii < _countType; ii++)
+                    {
+                        listCountButches.Add(_countBatches);
+                    }
+
+                    _l = Convert.ToInt32(LTB.Text);
+                    _maxS = Convert.ToInt32(timeSwitchingTB.Text);
+                    _maxT = Convert.ToInt32(timeTreatmentingTB.Text);
+                    GetTime();
+                    Shedule.L = _l;
+                    Shedule.Switching = _temptS;
+                    Shedule.Treatment = _temptT;
+                    var firstLevel = new FirstLevel(_countType, listCountButches, checkBox1.Checked);
+                    firstLevel.GenetateSolutionForAllTypes("outputFirstAlgorithm.txt");
+                    var oldSecondLevel = new OldSecondLevel();
+
+                    result.Add(oldSecondLevel.CalcFitnessList(firstLevel._a).Sum());
+                }
+            }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void OldSecondLevelAll_Click(object sender, EventArgs e)
+        {
+            _countType = (int)numericUpDown1.Value;
+            _countBatches = Convert.ToInt32(countBatchesTB.Text);
+
+            var listCountButches = new List<int>();
+            for (var ii = 0; ii < _countType; ii++)
+            {
+                listCountButches.Add(_countBatches);
+            }
+
+            _l = Convert.ToInt32(LTB.Text);
+            _maxS = Convert.ToInt32(timeSwitchingTB.Text);
+            _maxT = Convert.ToInt32(timeTreatmentingTB.Text);
+            GetTime();
+            Shedule.L = _l;
+            Shedule.Switching = _temptS;
+            Shedule.Treatment = _temptT;
+            var firstLevel = new FirstLevel(_countType, listCountButches, checkBox1.Checked);
+            firstLevel.GenetateSolutionForAllTypes("outputFirstAlgorithm.txt");
+            var oldSecondLevel = new OldSecondLevel();
+
+            var a = oldSecondLevel.CalcFitnessList(firstLevel._a);
         }
 
         private void button4_Click(object sender, EventArgs e)

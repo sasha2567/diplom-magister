@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -316,48 +317,11 @@ namespace newAlgorithm
             return result;
         }
 
-        public int[] calcFitnessList() {
-            List<int> FitnessList = new List<int>();
-            var r = this.ToArrayList();
-            int[] ni = { 8, 12, 16/*, 24, 32 */};
-            int[] time = { 2, 4, 8, 16, 32 };
-            int[] l = { 5, 10 };
-            int[] n = { 5, 10 };
-            int[,] compositionSetsForType = {
-                {2, 2, 0, 2, 2, 0, 0, 0, 0, 0},
-                {2, 0, 2, 2, 2, 0, 0, 0, 0, 0},
-                {0, 2, 2, 2, 2, 0, 0, 0, 0, 0},
-                {2, 2, 2, 0, 2, 0, 0, 0, 0, 0},
-                {2, 2, 2, 2, 0, 0, 0, 0, 0, 0}
-            };
-
-            var CompositionSets = new List<List<int>>();
-            var TimeSets = new List<List<int>>();
-            TimeSets.Add(new List<int>());
-            TimeSets[0].Add(65);
-            TimeSets[0].Add(70);
-            TimeSets.Add(new List<int>());
-            TimeSets[1].Add(70);
-            TimeSets[1].Add(75);
-            TimeSets.Add(new List<int>());
-            TimeSets[2].Add(65);
-            TimeSets[2].Add(75);
-            TimeSets.Add(new List<int>());
-            TimeSets[3].Add(75);
-            TimeSets[3].Add(80);
-            TimeSets.Add(new List<int>());
-            TimeSets[4].Add(70);
-            TimeSets[4].Add(75);
-            for (int i = 0; i < 5; i++)
-            {
-                CompositionSets.Add(new List<int>());
-                for (int j = 0; j < 10; j++)
-                {
-                    CompositionSets[i].Add(compositionSetsForType[i, j]);
-                }
-            }
-
-            var test = new Sets(CompositionSets, TimeSets);
+        public int[] calcSetsFitnessList(List<List<int>> compositionSets, List<List<int>> timeSets)
+        {
+            var r = ToArrayList();
+            var test = new Sets(compositionSets, timeSets);
+            var FitnessList = new List<int>();
             List<int> CountTime = new List<int>();
             var GaaSecondLevel = new GaaSecondLevel();
             foreach (var elem in r)
@@ -380,6 +344,30 @@ namespace newAlgorithm
             return CountTime.ToArray();
         }
 
+        public int[] calcFitnessList()
+        {
+            var r = ToArrayList();
+            List<int> CountTime = new List<int>();
+            var FitnessList = new List<int>();
+            var GaaSecondLevel = new GaaSecondLevel();
+            foreach (var elem in r)
+            {
+                var listint = new List<Shedule>();
+                for (var i = 0; i < 50; i++)
+                {
+
+                    var shedule = new Shedule(GaaSecondLevel.GetGaaSecondLevelGroup(elem));
+                    shedule.ConstructShedule();
+                    listint.Add(shedule);
+                }
+                var timelist = listint.Select(list => list.GetTime());
+                FitnessList.Add(timelist.Min());
+               
+
+            }
+            _fitnesslist = FitnessList;
+            return CountTime.ToArray();
+        }
 
 
 

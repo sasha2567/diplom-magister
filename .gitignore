@@ -6,3 +6,5 @@
 /**/bin/Debug/test/
 /.vs
 *.cache
+/magister-diplom/.vs/magister-diplom/v15
+/magister-diplom/.vs/magister-diplom/DesignTimeBuild
