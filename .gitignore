@@ -1,10 +1,11 @@
-﻿/**/bin/Debug/
-/**/bin/Debug/*.txt
-/**/bin/Debug/*.pdb
-/**/bin/Debug/*.suo
-/**/bin/Debug/*.ide
-/**/bin/Debug/test/
+﻿/**/Debug/
+/**/Debug/test/
+/**/*.txt
+/**/*.pdb
+/**/*.suo
+/**/*.ide
 /.vs
+*.csproj
 *.cache
 /magister-diplom/.vs/magister-diplom/v15
 /magister-diplom/.vs/magister-diplom/DesignTimeBuild

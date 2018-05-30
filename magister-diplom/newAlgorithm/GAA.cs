@@ -337,7 +337,7 @@ namespace newAlgorithm
                 var timelist = listint.Select(list => list.GetTime());
                     FitnessList.Add(timelist.Min());
                 test.GetSolution(listint[timelist.ToList().IndexOf(timelist.Min())].RetyrnR());
-                    CountTime.Add(test.GetNewCriterion());
+                    CountTime.Add(test.GetNewCriterion(true));
                 
             }
             _fitnesslist = FitnessList;

@@ -19,6 +19,8 @@ namespace newAlgorithm
         List<List<List<int>>> _temptS = new List<List<List<int>>>();
         List<List<int>> _temptT = new List<List<int>>();
 
+        public static bool direct;
+
         public static List<List<int>> compositionSets;//майкрософт кодстайл говорит юзать верблюжий стиль https://msdn.microsoft.com/en-us/library/ms229043%28v=vs.100%29.aspx
         public static List<List<int>> timeSets;
 
@@ -413,6 +415,7 @@ namespace newAlgorithm
 
         private void button4_Click(object sender, EventArgs e)
         {
+            Form1.direct = true;
             int[] N_komplect_type = { 2 };
             int[] N_komplect_for_type = { 2, 4 };
             int[] N_komplect_sostav = { 2, 4 };
