@@ -28,6 +28,16 @@ namespace newAlgorithm
         {
             InitializeComponent();
             InitializeForm();
+
+            var test = new List<List<int>>();
+            test.Add(new List<int>());
+            test.Add(new List<int>(){2});
+            test.Add(new List<int>(){10, 2});
+            var t = new Shedule(test);
+            //Shedule.L = 5;
+            //t.GetTime();
+            //var a = t.ReturnRIndex(0);
+            //var b = t.ReturnRIndex(1);
         }
 
         private void InitializeForm()
@@ -238,11 +248,10 @@ namespace newAlgorithm
                                             listCountButches[ii] = _countBatches;
                                         }
 
-                                        var gaa = new GAA(_countType, listCountButches, checkBox1.Checked);
+                                        var gaa = new GAA(_countType, listCountButches, checkBox1.Checked, _countBatches);
+
                                         gaa.SetXrom((int) numericUpDown2.Value);
-                                        gaa.calcSetsFitnessList(compositionSets, timeSets);
-                                        int s;
-                                        var result = gaa.getSelectionPopulation(_selectionType, out s);
+                                        var result = gaa.calcSetsFitnessList(compositionSets, timeSets);                                
                                     }
                                 }
                             }
@@ -340,11 +349,11 @@ namespace newAlgorithm
         private void OldSecondLevelButton_Click(object sender, EventArgs e)
         {
             var result = new List<int>();
-            var massi = new[] { 8, 12, 16, 24, 32 };
+            var massi = new[] { 2, 4, 8, 16, 32 };
             foreach (var intt in massi)
             {
                 timeSwitchingTB.Text = intt.ToString();
-                var mass= new[] { 8, 12, 16, 24, 32 };
+                var mass = new[] { 2, 4, 8, 16, 32 };
                 foreach (var item in massi)
                 {
                     timeTreatmentingTB.Text = item.ToString();
@@ -542,7 +551,7 @@ namespace newAlgorithm
                                 {
                                     listCountButches.Add(_countBatches);
                                 }
-                                var gaa = new GAA(_countType, listCountButches, checkBox1.Checked);
+                                var gaa = new GAA(_countType, listCountButches, checkBox1.Checked, _countBatches);
                                 gaa.SetXrom((int)numericUpDown2.Value);
                                 var countSourceKit = gaa.calcFitnessList();
                                 int s;

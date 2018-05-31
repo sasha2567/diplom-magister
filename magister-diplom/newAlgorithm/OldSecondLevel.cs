@@ -49,13 +49,6 @@ namespace newAlgorithm
                     PartyList[countParty][r.IndexOf(type)].Add(party);
                     time += new Shedule(PartyList[countParty]).GetTime();
 
-                    foreach (var batch in PartyList[countParty])
-                    {
-                        if (batch.Count == 0)
-                        {
-                            batch.Add(2);
-                        }
-                    }
                     timeList.Add(time);
                     if (time >= Tz)
                     {
