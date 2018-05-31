@@ -168,9 +168,9 @@ namespace newAlgorithm
 
         private void button2_Click(object sender, EventArgs e)
         {
-            int[] N_komplect_type = {2};
-            int[] N_komplect_for_type = {2, 4};
-            int[] N_komplect_sostav = {2, 4};
+            int[] N_komplect_type = {2, 4, 6};
+            int[] N_komplect_for_type = {2, 4, 6, 8};
+            int[] N_komplect_sostav = {2, 4, 6, 8};
             int[] n = {5, 10};
             int[] l = {5, 10};
             int[] time = {2, 4, 8, 16, 32};
@@ -416,9 +416,9 @@ namespace newAlgorithm
         private void button4_Click(object sender, EventArgs e)
         {
             Form1.direct = true;
-            int[] N_komplect_type = { 2 };
-            int[] N_komplect_for_type = { 2, 4 };
-            int[] N_komplect_sostav = { 2, 4 };
+            int[] N_komplect_type = { 2, 4};
+            int[] N_komplect_for_type = { 2, 4, 6};
+            int[] N_komplect_sostav = { 2, 4, 6 };
             int[] n = { 5, 10 };
             int[] l = { 5, 10 };
             int[] time = { 2, 4, 8, 16, 32 };
@@ -438,7 +438,7 @@ namespace newAlgorithm
                             timeSets.Add(new List<int>());
                             for (int j = 0; j < n_kom_q; j++)
                             {
-                                timeSets[i].Add(140);
+                                timeSets[i].Add((j + 1) * 140);
                             }
                         }
                         foreach (var n_kom_s in N_komplect_sostav)
