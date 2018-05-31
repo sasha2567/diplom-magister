@@ -21,15 +21,16 @@ namespace newAlgorithm
         private readonly bool _staticSolution;          // Признак фиксированных партий
         private List<List<List<int>>> Array;            // Состав пратий в виде массива
         Random rand = new Random();
-        int N = 10;
+        int _n = 10;
         public List<int> _fitnesslist = new List<int>();
         public List<Xromossomi> nabor = new List<Xromossomi>();
 
-        public GAA(int countType, List<int> countClaims, bool stat)
+        public GAA(int countType, List<int> countClaims, bool stat, int countWorck)
         {
             _countType = countType;
             _countClaims = countClaims;
             _staticSolution = stat;
+            _n = countWorck;
             _i = new List<int>(_countType);
         }
 
@@ -72,7 +73,7 @@ namespace newAlgorithm
             for (int j = 0; j < xrom.GenList.Count; j++)
             {
                 int buff = 0;
-                for (int i = 0; i < N / 2 - 1; i++)
+                for (int i = 0; i < _n / 2 - 1; i++)
                 {
                     if (xrom.GenListOst[j] == 2)
                     {
@@ -105,7 +106,7 @@ namespace newAlgorithm
             Xromossomi xrom = new Xromossomi();
             int buff = 0;
 
-            for (int i = 0; i < N / 2 - 1; i++)
+            for (int i = 0; i < _n / 2 - 1; i++)
             {
                 if (xrom.ostA == 2)
                 {
@@ -128,10 +129,10 @@ namespace newAlgorithm
             }
             xrom.GenA.Add(xrom.ostA);
             //
-            int s = N % 3 == 2 ? N / 3 + 1 : N / 3;
-            int t = N % 3 == 1 || N % 3 == 2 ? N / 3 + 1 : N / 3;
+            int s = _n % 3 == 2 ? _n / 3 + 1 : _n / 3;
+            int t = _n % 3 == 1 || _n % 3 == 2 ? _n / 3 + 1 : _n / 3;
             buff = 0;
-            for (int i = 0; i < N / 2 - 1; i++)
+            for (int i = 0; i < _n / 2 - 1; i++)
             {
                 if (xrom.ostB == 0 && 10 == xrom.GenA.Sum() && xrom.GenA[2] != 0)
                 {
@@ -147,7 +148,7 @@ namespace newAlgorithm
                     if (xrom.ostB == 1)
                 {
                     if (xrom.GenB.Count == 0)
-                        xrom.GenA[(N / 3) - 1]++;
+                        xrom.GenA[(_n / 3) - 1]++;
                     else
                         xrom.GenB[xrom.GenB.Count - 1]++;
                     xrom.ostB = 0;
@@ -162,7 +163,7 @@ namespace newAlgorithm
             xrom.GenB.Add(xrom.ostB);
 
             ///
-            for (int i = 0; i < N / 2 - 1; i++)
+            for (int i = 0; i < _n / 2 - 1; i++)
             {
                 if (xrom.ostC == 2)
                 {
@@ -326,21 +327,12 @@ namespace newAlgorithm
             var GaaSecondLevel = new GaaSecondLevel();
             foreach (var elem in r)
             {
-                var listint = new List<Shedule>();
-                for (var i = 0; i < 50; i++)
-                {
-                    
-                    var shedule = new Shedule(GaaSecondLevel.GetGaaSecondLevelGroup(elem));
-                    shedule.ConstructShedule();
-                    listint.Add(shedule);
-                }
-                var timelist = listint.Select(list => list.GetTime());
-                    FitnessList.Add(timelist.Min());
-                test.GetSolution(listint[timelist.ToList().IndexOf(timelist.Min())].RetyrnR());
-                    CountTime.Add(test.GetNewCriterion(true));
-                
+                var shedule = new Shedule(elem);
+                shedule.ConstructShedule();   
+                test.GetSolution(shedule.RetyrnR());
+                CountTime.Add(test.GetNewCriterion(true));          
             }
-            _fitnesslist = FitnessList;
+           
             return CountTime.ToArray();
         }
 

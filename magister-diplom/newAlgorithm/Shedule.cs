@@ -31,7 +31,7 @@ namespace newAlgorithm
         private List<List<int>> GenerateR(IReadOnlyList<List<int>> m)
         {
             var result = new List<List<int>>();
-            var summ = m.Sum(t => t?.Count ?? 0);
+            var summ = m.Sum(t => t.Count);
             var maxColumn = 0;
             for (var j = 0; j < summ; j++)
             {
@@ -90,11 +90,14 @@ namespace newAlgorithm
                 for (var k = 0; k < _r.Count; k++)//количество партий
                 {
                     var ind = ReturnRIndex(k);
-                    //if(ind == -1)
-                    //    continue;
+                    var elem = _r[k][ind];
+                    if (elem == -1)
+                    {
+                        elem = 1;
+                    }
                     _startProcessing[i].Add(new List<int>());
                     _endProcessing[i].Add(new List<int>());
-                    for (var p = 0; p < _r[k][ind]; p++)//количество требований
+                    for (var p = 0; p < elem; p++)//количество требований
                     {
                         _startProcessing[i][k].Add(0);
                         _endProcessing[i][k].Add(0);
@@ -195,7 +198,7 @@ namespace newAlgorithm
             }*/
         }
 
-        private int ReturnRIndex(int j)
+        public int ReturnRIndex(int j)
         {
             for (var i = 0; i < _r[j].Count; i++)
             {
@@ -223,22 +226,25 @@ namespace newAlgorithm
         {
             var indd1 = 0;
             var indd2 = 0;
-            for (var i = 0; i < _r.Count; i++)
+            for (var i = 0; i < _r[ind1].Count; i++)
             {
-                if (_r[i][ind1] > 0)
+                if (_r[ind1][i] > 0)
                 {
                     indd1 = i;
                 }
-                if (_r[i][ind2] > 0)
+            }
+            for (var i = 0; i < _r[ind2].Count; i++)
+            {
+                if (_r[ind2][i] > 0)
                 {
                     indd2 = i;
                 }
             }
-            var temp = _r[indd1][ind1];
-            _r[indd1][ind1] = 0;
-            _r[indd2][ind1] = _r[indd2][ind2];
-            _r[indd2][ind2] = 0;
-            _r[indd1][ind2] = temp;
+            var temp = _r[ind1][indd1];
+            _r[ind1][indd1] = 0;
+            _r[ind1][indd2] = _r[ind2][indd2];
+            _r[ind2][indd2] = 0;
+            _r[ind2][indd1] = temp;
         }
 
         public List<List<int>> ConstructShedule()
@@ -247,14 +253,16 @@ namespace newAlgorithm
             CalculateShedule();
             var tempR = CopyMatrix(_r);
             tempTime = _timeConstructShedule;
-            for (var i = 0; i < _r[0].Count - 1; i++)
+            for (var i = 0; i < _r.Count - 1; i++)
             {
-                for (var j = i + 1; j < _r[0].Count; j++)
-                ChangeColum(i, j);
-                CalculateShedule();
-                if (tempTime >= _timeConstructShedule) continue;
-                _r = tempR;
-                _timeConstructShedule = tempTime;
+                for (var j = i + 1; j < _r.Count; j++)
+                {
+                    ChangeColum(i, j);
+                    CalculateShedule();
+                    if (tempTime >= _timeConstructShedule) continue;
+                    _r = tempR;
+                    _timeConstructShedule = tempTime;
+                }
             }
             return _r;
         }
