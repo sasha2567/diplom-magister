@@ -425,9 +425,9 @@ namespace newAlgorithm
         private void button4_Click(object sender, EventArgs e)
         {
             Form1.direct = true;
-            int[] N_komplect_type = { 2, 4};
-            int[] N_komplect_for_type = { 2, 4, 6};
-            int[] N_komplect_sostav = { 2, 4, 6 };
+            int[] N_komplect_type = { 2 };
+            int[] N_komplect_for_type = { 2, 4 };
+            int[] N_komplect_sostav = { 2, 4 };
             int[] n = { 5, 10 };
             int[] l = { 5, 10 };
             int[] time = { 2, 4, 8, 16, 32 };
@@ -443,11 +443,21 @@ namespace newAlgorithm
                     {
                         for (int i = 0; i < n_kom; i++)
                         {
+                            var rand = new Random();
+                            var temp = rand.Next(10);
+                            if (temp > 5)
+                            {
+                                temp = 140;
+                            }
+                            else
+                            {
+                                temp = 105;
+                            }
                             compositionSets.Add(new List<int>());
                             timeSets.Add(new List<int>());
                             for (int j = 0; j < n_kom_q; j++)
                             {
-                                timeSets[i].Add((j + 1) * 140);
+                                timeSets[i].Add((j + 1) * temp);
                             }
                         }
                         foreach (var n_kom_s in N_komplect_sostav)
@@ -459,7 +469,16 @@ namespace newAlgorithm
                                 {
                                     for (var ind = 0; ind < _countType; ind++)
                                     {
-                                        compositionSets[i].Add(n_kom_s);
+                                        var rand = new Random();
+                                        var temp = rand.Next(10);
+                                        if (temp > 5)
+                                        {
+                                            compositionSets[i].Add(n_kom_s);
+                                        }
+                                        else
+                                        {
+                                            compositionSets[i].Add(2);
+                                        }   
                                     }
                                 }
 
