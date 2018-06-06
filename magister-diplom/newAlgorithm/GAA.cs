@@ -318,7 +318,7 @@ namespace newAlgorithm
             return result;
         }
 
-        public int[] calcSetsFitnessList(List<List<int>> compositionSets, List<List<int>> timeSets)
+        public int calcSetsFitnessList(List<List<int>> compositionSets, List<List<int>> timeSets)
         {
             var r = ToArrayList();
             var test = new Sets(compositionSets, timeSets);
@@ -333,7 +333,7 @@ namespace newAlgorithm
                 CountTime.Add(test.GetNewCriterion(true));          
             }
            
-            return CountTime.ToArray();
+            return CountTime.ToArray().Min();
         }
 
         public int[] calcFitnessList()
