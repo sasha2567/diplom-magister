@@ -451,7 +451,7 @@ namespace newAlgorithm
 
         private void button4_Click(object sender, EventArgs e)
         {
-            Form1.direct = false;
+            Form1.direct = checkBox2.Checked;
             int[] N_komplect_type = { 2, 4 };
             int[] N_komplect_for_type = { 2, 4, 6 };
             int[] N_komplect_sostav = { 2, 4, 6 };
@@ -459,8 +459,13 @@ namespace newAlgorithm
             int[] l = { 5, 10 };
             int[] time = { 2, 4, 8, 16, 32 };
 
-            string file = "test/testFile_";
-            using (var fileOut = new StreamWriter(file + "All1.txt", true))
+            var file = "test/testFile_";
+            var str = "direct";
+            if (!Form1.direct)
+            {
+                str = "first_task";
+            }
+            using (var fileOut = new StreamWriter(file + "All_" + str + ".txt", true))
             {
                 foreach (var n_kom in N_komplect_type)
                 {

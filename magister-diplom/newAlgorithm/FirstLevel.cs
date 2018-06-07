@@ -438,15 +438,15 @@ namespace newAlgorithm
         /// <param name="_n">Матрица номеров решений из А2</param>
         /// <param name="f">Файл для записей логов</param>
         ///Менят здесь для _\*РУСЛАН*/_
-        private void GenerateCombination(int ind, List<int> _n, StreamWriter f)
+        private void GenerateCombination(int ind, List<int> _n)
         {
             for (int i = _countType - 1; i >= 0; i--)
             {
                 for (int j = 0;j <_a2[i].Count; j++)
                 {
                     _n[i]=j;
-                    f.WriteLine(PrintList(_n));
-                        GetSolution(_n, f);
+                    //f.WriteLine(PrintList(_n));
+                        GetSolution(_n);
                 }        
             }
         }
@@ -456,7 +456,7 @@ namespace newAlgorithm
         /// </summary>
         /// <param name="_n">Массив индексов решений из А2</param>
         /// <param name="f">Файл для записей логов</param>
-        private void GetSolution(List<int> _n, StreamWriter f)
+        private void GetSolution(List<int> _n)
         {
             var tempA = CopyMatrix(_a);
             for (var j = 0; j < _countType; j++)
@@ -493,7 +493,7 @@ namespace newAlgorithm
         {
             var sets = new Sets(Form1.compositionSets, Form1.timeSets);
             var result = new[] { 0, 0 };
-            using (var f = new StreamWriter("standartOutData.txt", true))
+            //using (var f = new StreamWriter("standartOutData.txt", true))
             {
                 GenerateStartSolution();
                 var shedule = new Shedule(_a);
@@ -546,14 +546,14 @@ namespace newAlgorithm
                                 sets.GetSolution(r);
                                 time = sets.GetNewCriterion(Form1.direct);
                                 s = PrintA(tempA);
-                                f.Write(s + " - " + time);
+                                //f.Write(s + " - " + time);
                                 if (time < _f1Buf)
                                 {
                                     _abuf = CopyMatrix(tempA);
                                     _typeSolutionFlag = true;
                                     _f1Buf = time;
                                 }
-                                f.WriteLine();
+                                //f.WriteLine();
                             }
                         }
                         if (!_typeSolutionFlag)
@@ -566,7 +566,7 @@ namespace newAlgorithm
                                 _n.Add(_a2[i].Count);
                                 if (_n[i] == 0) _n[i] = -1;
                             }
-                            GenerateCombination(0, _nTemp, f);
+                            GenerateCombination(0, _nTemp);
                         }
                         if (_typeSolutionFlag)
                         {
@@ -584,11 +584,11 @@ namespace newAlgorithm
                                 }
                             }
                         }
-                        f.WriteLine("------------------");
+                        //f.WriteLine("------------------");
                     }
                 }
                 result[1] = _f1;
-                f.Close();
+                //f.Close();
             }
             return result;
         }
