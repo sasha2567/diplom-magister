@@ -42,6 +42,8 @@
             this.button2 = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label9 = new System.Windows.Forms.Label();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.OldSecondLevelAll = new System.Windows.Forms.Button();
             this.OldSecondLevelButton = new System.Windows.Forms.Button();
             this.setsBtn = new System.Windows.Forms.Button();
@@ -60,8 +62,8 @@
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.label7 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.label9 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -206,6 +208,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label10);
+            this.tabPage1.Controls.Add(this.textBox1);
             this.tabPage1.Controls.Add(this.label9);
             this.tabPage1.Controls.Add(this.checkBox2);
             this.tabPage1.Controls.Add(this.OldSecondLevelAll);
@@ -235,17 +239,36 @@
             this.tabPage1.Controls.Add(this.timeTreatmentingTB);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(607, 346);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Установка параметров";
             this.tabPage1.UseVisualStyleBackColor = true;
             this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(314, 17);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(116, 13);
+            this.label9.TabIndex = 28;
+            this.label9.Text = "Диррективные сроки";
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(317, 36);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(122, 17);
+            this.checkBox2.TabIndex = 27;
+            this.checkBox2.Text = "Да/Первая задача";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
             // OldSecondLevelAll
             // 
             this.OldSecondLevelAll.Location = new System.Drawing.Point(285, 138);
-            this.OldSecondLevelAll.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.OldSecondLevelAll.Margin = new System.Windows.Forms.Padding(2);
             this.OldSecondLevelAll.Name = "OldSecondLevelAll";
             this.OldSecondLevelAll.Size = new System.Drawing.Size(105, 22);
             this.OldSecondLevelAll.TabIndex = 26;
@@ -256,7 +279,7 @@
             // OldSecondLevelButton
             // 
             this.OldSecondLevelButton.Location = new System.Drawing.Point(284, 162);
-            this.OldSecondLevelButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.OldSecondLevelButton.Margin = new System.Windows.Forms.Padding(2);
             this.OldSecondLevelButton.Name = "OldSecondLevelButton";
             this.OldSecondLevelButton.Size = new System.Drawing.Size(106, 23);
             this.OldSecondLevelButton.TabIndex = 25;
@@ -402,7 +425,7 @@
             this.tabPage2.Controls.Add(this.dataGridView1);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(607, 346);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Установка времени";
@@ -444,24 +467,21 @@
             this.dataGridView1.Size = new System.Drawing.Size(280, 288);
             this.dataGridView1.TabIndex = 17;
             // 
-            // checkBox2
+            // textBox1
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(317, 36);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(122, 17);
-            this.checkBox2.TabIndex = 27;
-            this.checkBox2.Text = "Да/Первая задача";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.textBox1.Location = new System.Drawing.Point(317, 78);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 29;
             // 
-            // label9
+            // label10
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(314, 17);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(116, 13);
-            this.label9.TabIndex = 28;
-            this.label9.Text = "Диррективные сроки";
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(314, 56);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(137, 13);
+            this.label10.TabIndex = 30;
+            this.label10.Text = "Кол-во типов комплектов";
             // 
             // Form1
             // 
@@ -520,6 +540,8 @@
         private System.Windows.Forms.Button OldSecondLevelAll;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 
