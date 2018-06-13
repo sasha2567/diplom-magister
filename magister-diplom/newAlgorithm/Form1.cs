@@ -465,17 +465,16 @@ namespace newAlgorithm
                 str = "first_task";
             }
             var n_kom = Convert.ToInt64(textBox1.Text);
+            var rand = new Random();
+            var temp = 0;
             using (var fileOut = new StreamWriter(file + "All_" + str + "_" + n_kom + ".txt", true))
             {
-                
-                compositionSets = new List<List<int>>();
                 timeSets = new List<List<int>>();
                 foreach(var n_kom_q in N_komplect_for_type)
                 {
                     for (int i = 0; i < n_kom; i++)
                     {
-                        var rand = new Random();
-                        var temp = rand.Next(10);
+                        temp = rand.Next(10);
                         if (temp > 5)
                         {
                             temp = 150;
@@ -483,8 +482,7 @@ namespace newAlgorithm
                         else
                         {
                             temp = 100;
-                        }
-                        compositionSets.Add(new List<int>());
+                        }                        
                         timeSets.Add(new List<int>());
                         for (int j = 0; j < n_kom_q; j++)
                         {
@@ -496,12 +494,14 @@ namespace newAlgorithm
                         foreach (var t in n)
                         {
                             _countType = t;
+                            compositionSets = new List<List<int>>();
                             for (int i = 0; i < n_kom; i++)
                             {
+                                compositionSets.Add(new List<int>());
                                 for (var ind = 0; ind < _countType; ind++)
                                 {
-                                    var rand = new Random();
-                                    var temp = rand.Next(10);
+                                    rand = new Random();
+                                    temp = rand.Next(10);
                                     if (temp > 5)
                                     {
                                         compositionSets[i].Add(n_kom_s);
