@@ -62,7 +62,7 @@ namespace newAlgorithm
                         timeList.RemoveAt(timeList.Count - 1);
                         if (timeList.Count == 0)
                         {
-                            return  new List<int>{-1};
+                            return  new List<int>{0};
                         }
                         timeListResult.Add(timeList.Last());
                         PartyList.Add(new List<List<int>>());
@@ -86,45 +86,62 @@ namespace newAlgorithm
         {
             r.ForEach(ints => ints.Reverse());
 
-            List<List<int>> transpanentr = new List<List<int>>();
- 
-
-
             PartyList.Add(new List<List<int>> { new List<int>() });
             var countParty = 0;
             var timeList = new List<int>();
             var timeListResult = new List<int>();
             var time = 0;
-            foreach (var type in r)
+
+            var canWrite = true;
+
+            while (r.Any(ints => ints.Count != 0) && canWrite)
             {
-                foreach (var party in type)
+                canWrite = false;
+                var innerr = r.Select(ints => ints.Select(i => i).ToList()).ToList();
+               
+                foreach (var type in innerr)
                 {
-                    PartyList[countParty][r.IndexOf(type)].Add(party);
-                    time += new Shedule(PartyList[countParty]).GetTime();
-
-                    timeList.Add(time);
-                    if (time >= Tz)
+                    foreach (var party in type)
                     {
-                        timeList.RemoveAt(timeList.Count - 1);
-                        if (timeList.Count == 0)
+                        PartyList[countParty][innerr.IndexOf(type)].Add(party);
+                        time += new Shedule(PartyList[countParty]).GetTime();
+                        
+                        timeList.Add(time);
+                        if (time >= Tz)
                         {
-                            continue;
-                        }
-                        timeListResult.Add(timeList.Last());
-                        PartyList.Add(new List<List<int>>());
-                        PartyList[countParty][r.IndexOf(type)].Remove(PartyList[countParty][r.IndexOf(type)].Last());
-                        countParty++;
+                            timeList.RemoveAt(timeList.Count - 1);
+                            if (timeList.Count == 0)
+                            {
+                                time = 0;
+                                continue;
+                            }
 
-                        while (PartyList[countParty].Count <= r.IndexOf(type))
-                        {
-                            PartyList[countParty].Add(new List<int>());
+                            
+
+                            PartyList[countParty][innerr.IndexOf(type)].RemoveAt(PartyList[countParty][innerr.IndexOf(type)].Count - 1);
+                            while (PartyList[countParty].Count <= innerr.IndexOf(type))
+                            {
+                                PartyList[countParty].Add(new List<int>());
+                            }
+
+                            time = timeList.Last();
                         }
-                        PartyList[countParty][r.IndexOf(type)].Add(party);
-                        time = 0;
+                        else
+                        {
+                            canWrite = true;
+                            r[innerr.IndexOf(type)].Remove(party);
+                        }
                     }
+
+                    PartyList[countParty].Add(new List<int>());
                 }
-                PartyList[countParty].Add(new List<int>());
+                
+                PartyList.Add(new List<List<int>> { new List<int>() });
+                timeListResult.Add(time);
+                time = 0;
+                countParty++;
             }
+
             return timeListResult;
         }
 

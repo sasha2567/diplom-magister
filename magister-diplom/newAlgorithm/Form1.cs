@@ -376,7 +376,7 @@ namespace newAlgorithm
         private void OldSecondLevelButton_Click(object sender, EventArgs e)
         {
             var massi = new[] { 2, 4, 8, 16, 32 };
-            using (var file = new StreamWriter( OptimizationSecondLevel.Checked ? "oldOptimalSecondLevel.txt" : "oldSecondLevel.txt", true))
+            using (var file = new StreamWriter( OptimizationSecondLevel.Checked ? "oldOptimalSecondLevel.txt" : "oldSecondLevel.txt", false))
             {
                 foreach (var intt in massi)
                 {
