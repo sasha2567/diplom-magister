@@ -274,7 +274,7 @@ namespace newAlgorithm
                                             var gaa = new GAA(_countType, listCountButches, checkBox1.Checked, _countBatches);
 
                                             gaa.SetXrom((int)numericUpDown2.Value);
-                                            var result = gaa.calcSetsFitnessList(compositionSets, timeSets);
+                                            var result = gaa.calcSetsFitnessList(compositionSets, timeSets , checkBox2.Checked);
 
                                             file.WriteLine(result);
                                         }
@@ -375,38 +375,49 @@ namespace newAlgorithm
 
         private void OldSecondLevelButton_Click(object sender, EventArgs e)
         {
-            var result = new List<int>();
             var massi = new[] { 2, 4, 8, 16, 32 };
-            foreach (var intt in massi)
+            using (var file = new StreamWriter( OptimizationSecondLevel.Checked ? "oldOptimalSecondLevel.txt" : "oldSecondLevel.txt", true))
             {
-                timeSwitchingTB.Text = intt.ToString();
-                var mass = new[] { 2, 4, 8, 16, 32 };
-                foreach (var item in massi)
+                foreach (var intt in massi)
                 {
-                    timeTreatmentingTB.Text = item.ToString();
-                    _countType = (int) numericUpDown1.Value;
-                    _countBatches = Convert.ToInt32(countBatchesTB.Text);
-
-                    var listCountButches = new List<int>();
-                    for (var ii = 0; ii < _countType; ii++)
+                    timeSwitchingTB.Text = intt.ToString();
+                    foreach (var item in massi)
                     {
-                        listCountButches.Add(_countBatches);
+                        for (var tz = 50; tz <= 200; tz = tz + 50)
+                        {
+                            timeTreatmentingTB.Text = item.ToString();
+                            _countType = (int)numericUpDown1.Value;
+                            _countBatches = Convert.ToInt32(countBatchesTB.Text);
+                            var listCountButches = new List<int>();
+                            for (var ii = 0; ii < _countType; ii++)
+                            {
+                                listCountButches.Add(_countBatches);
+                            }
+
+                            _l = Convert.ToInt32(LTB.Text);
+                            _maxS = Convert.ToInt32(timeSwitchingTB.Text);
+                            _maxT = Convert.ToInt32(timeTreatmentingTB.Text);
+                            GetTime();
+                            Shedule.L = _l;
+                            Shedule.Switching = _temptS;
+                            Shedule.Treatment = _temptT;
+                            var firstLevel = new FirstLevel(_countType, listCountButches, checkBox1.Checked);
+                            firstLevel.GenetateSolutionForAllTypes("outputFirstAlgorithm.txt");
+                            var oldSecondLevel = new OldSecondLevel(tz);
+
+                            var listInt = !OptimizationSecondLevel.Checked ? oldSecondLevel.CalcFitnessList(firstLevel._a)
+                                : oldSecondLevel.CalcOptimalFitnessList(firstLevel._a);
+                            var stringTime =  listInt.Select(i => i.ToString());
+                            var join = string.Join(" ", stringTime);
+                            file.WriteLine($"Tz = {tz} {Environment.NewLine}" +
+                                           $"Tp = {intt} {Environment.NewLine}" +
+                                           $"To = {item} {Environment.NewLine}" +
+                                           $"{listInt.Sum()}({join}) {Environment.NewLine}{Environment.NewLine}");
+                        }
                     }
-
-                    _l = Convert.ToInt32(LTB.Text);
-                    _maxS = Convert.ToInt32(timeSwitchingTB.Text);
-                    _maxT = Convert.ToInt32(timeTreatmentingTB.Text);
-                    GetTime();
-                    Shedule.L = _l;
-                    Shedule.Switching = _temptS;
-                    Shedule.Treatment = _temptT;
-                    var firstLevel = new FirstLevel(_countType, listCountButches, checkBox1.Checked);
-                    firstLevel.GenetateSolutionForAllTypes("outputFirstAlgorithm.txt");
-                    var oldSecondLevel = new OldSecondLevel();
-
-                    result.Add(oldSecondLevel.CalcFitnessList(firstLevel._a).Sum());
                 }
             }
+            MessageBox.Show(@"Решения найдены");
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -447,6 +458,11 @@ namespace newAlgorithm
             var oldSecondLevel = new OldSecondLevel();
 
             var a = oldSecondLevel.CalcFitnessList(firstLevel._a);
+        }
+
+        private void checkBox2_CheckedChanged_1(object sender, EventArgs e)
+        {
+
         }
 
         private void button4_Click(object sender, EventArgs e)
