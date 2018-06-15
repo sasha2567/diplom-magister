@@ -47,7 +47,8 @@ namespace newAlgorithm
                 foreach (var party in type)
                 {
                     PartyList[countParty][r.IndexOf(type)].Add(party);
-                    time += new Shedule(PartyList[countParty]).GetTime();
+                    int criteria;
+                    time += new Shedule(PartyList[countParty]).GetTimeWithCriterium(out criteria);
 
                     timeList.Add(time);
                     if (time >= Tz)

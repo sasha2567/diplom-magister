@@ -267,8 +267,29 @@ namespace newAlgorithm
             return _r;
         }
 
+
+        public int GetTimeWithCriterium(out int criterier)
+        {
+            criterier = 0;
+
+            for (int numberPocess = 0; numberPocess < L; numberPocess++)
+            {
+                for (int numberBatch = 0; numberBatch < _startProcessing[numberPocess].Count; numberBatch++)
+                {
+                    for (int numberWork = 0; numberWork < _startProcessing[numberPocess][numberBatch].Count; numberWork++)
+                    {
+                        criterier += _endProcessing[numberPocess][numberBatch][numberWork] - _startProcessing[numberPocess][numberBatch][numberWork];
+                    }
+                }
+            }
+
+            ConstructShedule();
+            return _timeConstructShedule;
+        }
+
         public int GetTime()
         {
+            
             ConstructShedule();
             return _timeConstructShedule;
         }
