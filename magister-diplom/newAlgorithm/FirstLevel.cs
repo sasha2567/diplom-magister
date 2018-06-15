@@ -426,7 +426,7 @@ namespace newAlgorithm
                 }
                 file.WriteLine(_f1);
                 file.Close();
-                MessageBox.Show("Решения найдены");
+                //MessageBox.Show("Решения найдены");
             }
         }
 

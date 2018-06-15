@@ -318,7 +318,7 @@ namespace newAlgorithm
             return result;
         }
 
-        public int calcSetsFitnessList(List<List<int>> compositionSets, List<List<int>> timeSets)
+        public int calcSetsFitnessList(List<List<int>> compositionSets, List<List<int>> timeSets , bool directedTime)
         {
             var r = ToArrayList();
             var test = new Sets(compositionSets, timeSets);
@@ -330,7 +330,7 @@ namespace newAlgorithm
                 var shedule = new Shedule(elem);
                 shedule.ConstructShedule();   
                 test.GetSolution(shedule.RetyrnR());
-                CountTime.Add(test.GetNewCriterion(true));          
+                CountTime.Add(test.GetNewCriterion(directedTime));          
             }
            
             return CountTime.ToArray().Min();

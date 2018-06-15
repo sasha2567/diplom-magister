@@ -17,8 +17,16 @@ namespace newAlgorithm
         public static int Tz = 80;//вот здесь надо менять время обработки при 40 оно успеваетполностьюобработать все партии
         public int[] Prostoi = new int[4];
         public List<List<List<int>>> PartyList = new List<List<List<int>>>();
+
         public OldSecondLevel()
         {
+            groups = new Groups(5);
+            Q = new Groups(5);
+        }
+
+        public OldSecondLevel(int tz)
+        {
+            Tz = tz;
             this.groups = new Groups(5);
             this.Q = new Groups(5);
         }
@@ -34,9 +42,9 @@ namespace newAlgorithm
             this.Q.Set_M(1);//допустим
         }
 
-        public List<int> CalcFitnessList(List<List<int>> r)
+        public List<int> CalcFitnessList(List<List<int>> r, out int criteria)
         {
-            List<int> fitnessList = new List<int>();
+            criteria = 0;
             PartyList.Add(new List<List<int>>{new List<int>()});
             var countParty = 0;
             var timeList = new List<int>();
@@ -47,13 +55,17 @@ namespace newAlgorithm
                 foreach (var party in type)
                 {
                     PartyList[countParty][r.IndexOf(type)].Add(party);
-                    int criteria;
+                    
                     time += new Shedule(PartyList[countParty]).GetTimeWithCriterium(out criteria);
 
                     timeList.Add(time);
                     if (time >= Tz)
                     {
                         timeList.RemoveAt(timeList.Count - 1);
+                        if (timeList.Count == 0)
+                        {
+                            return  new List<int>{0};
+                        }
                         timeListResult.Add(timeList.Last());
                         PartyList.Add(new List<List<int>>());
                         PartyList[countParty][r.IndexOf(type)].Remove(PartyList[countParty][r.IndexOf(type)].Last());
@@ -69,6 +81,70 @@ namespace newAlgorithm
                 }
                 PartyList[countParty].Add( new List<int>());
             }
+            return timeListResult;
+        }
+
+        public List<int> CalcOptimalFitnessList(List<List<int>> r, out int criteria)
+        {
+            criteria = 0;
+            r.ForEach(ints => ints.Reverse());
+
+            PartyList.Add(new List<List<int>> { new List<int>() });
+            var countParty = 0;
+            var timeList = new List<int>();
+            var timeListResult = new List<int>();
+            var time = 0;
+
+            var canWrite = true;
+
+            while (r.Any(ints => ints.Count != 0) && canWrite)
+            {
+                canWrite = false;
+                var innerr = r.Select(ints => ints.Select(i => i).ToList()).ToList();
+               
+                foreach (var type in innerr)
+                {
+                    foreach (var party in type)
+                    {
+                        PartyList[countParty][innerr.IndexOf(type)].Add(party);
+                        time += new Shedule(PartyList[countParty]).GetTimeWithCriterium(out criteria);
+                        
+                        timeList.Add(time);
+                        if (time >= Tz)
+                        {
+                            timeList.RemoveAt(timeList.Count - 1);
+                            if (timeList.Count == 0)
+                            {
+                                time = 0;
+                                continue;
+                            }
+
+                            
+
+                            PartyList[countParty][innerr.IndexOf(type)].RemoveAt(PartyList[countParty][innerr.IndexOf(type)].Count - 1);
+                            while (PartyList[countParty].Count <= innerr.IndexOf(type))
+                            {
+                                PartyList[countParty].Add(new List<int>());
+                            }
+
+                            time = timeList.Last();
+                        }
+                        else
+                        {
+                            canWrite = true;
+                            r[innerr.IndexOf(type)].Remove(party);
+                        }
+                    }
+
+                    PartyList[countParty].Add(new List<int>());
+                }
+                
+                PartyList.Add(new List<List<int>> { new List<int>() });
+                timeListResult.Add(time);
+                time = 0;
+                countParty++;
+            }
+
             return timeListResult;
         }
 
