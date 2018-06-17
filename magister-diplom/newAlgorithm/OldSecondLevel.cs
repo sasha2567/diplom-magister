@@ -14,9 +14,11 @@ namespace newAlgorithm
         private Shedule shedule;
         private List<List<int>> A;
         public static int countL = 4;
+        private int L  = 4;
         public static int Tz = 80;//вот здесь надо менять время обработки при 40 оно успеваетполностьюобработать все партии
         public int[] Prostoi = new int[4];
         public List<List<List<int>>> PartyList = new List<List<List<int>>>();
+        private int countGroup = 2;
 
         public OldSecondLevel()
         {
@@ -24,9 +26,11 @@ namespace newAlgorithm
             Q = new Groups(5);
         }
 
-        public OldSecondLevel(int tz)
+        public OldSecondLevel(int tz, int countGroup, int l)
         {
             Tz = tz;
+            this.countGroup = countGroup;
+            this.L = l;
             this.groups = new Groups(5);
             this.Q = new Groups(5);
         }
@@ -42,9 +46,10 @@ namespace newAlgorithm
             this.Q.Set_M(1);//допустим
         }
 
-        public List<int> CalcFitnessList(List<List<int>> r, out int criteria)
+        public List<int> CalcFitnessList(List<List<int>> r, out int criteria, out int firstLevelCrit)
         {
             criteria = 0;
+            firstLevelCrit = 0;
             PartyList.Add(new List<List<int>>{new List<int>()});
             var countParty = 0;
             var timeList = new List<int>();
@@ -52,11 +57,13 @@ namespace newAlgorithm
             var time = 0;
             foreach (var type in r)
             {
+                if (countParty >= countGroup)
+                    break;
                 foreach (var party in type)
                 {
                     PartyList[countParty][r.IndexOf(type)].Add(party);
                     
-                    time += new Shedule(PartyList[countParty]).GetTimeWithCriterium(out criteria);
+                    time += new Shedule(PartyList[countParty]).GetTimeWithCriterium(Tz, out criteria);
 
                     timeList.Add(time);
                     if (time >= Tz)
@@ -71,6 +78,8 @@ namespace newAlgorithm
                         PartyList[countParty][r.IndexOf(type)].Remove(PartyList[countParty][r.IndexOf(type)].Last());
                         countParty++;
 
+                        if (countParty >= countGroup)
+                            break;
                         while (PartyList[countParty].Count <= r.IndexOf(type))
                         {
                             PartyList[countParty].Add(new List<int>());
@@ -81,12 +90,24 @@ namespace newAlgorithm
                 }
                 PartyList[countParty].Add( new List<int>());
             }
+            firstLevelCrit = PartyList.Take(countGroup).Select(list => list.Select(ints => ints.Sum()).Sum()).Sum();
+            var critList = new List<int>();
+            var resTime = new List<int>();
+            foreach (var group in  PartyList.Take(countGroup))
+            {
+                resTime.Add(new Shedule(group).GetTimeWithCriterium(Tz, out criteria));
+                critList.Add(criteria);
+            }
+
+            criteria = Tz * countGroup - resTime.Sum();
             return timeListResult;
         }
 
-        public List<int> CalcOptimalFitnessList(List<List<int>> r, out int criteria)
+        public List<int> CalcOptimalFitnessList(List<List<int>> r, out int criteria, out int firstLevelCrit)
         {
             criteria = 0;
+            firstLevelCrit = 0;
+
             r.ForEach(ints => ints.Reverse());
 
             PartyList.Add(new List<List<int>> { new List<int>() });
@@ -107,7 +128,7 @@ namespace newAlgorithm
                     foreach (var party in type)
                     {
                         PartyList[countParty][innerr.IndexOf(type)].Add(party);
-                        time += new Shedule(PartyList[countParty]).GetTimeWithCriterium(out criteria);
+                        time += new Shedule(PartyList[countParty]).GetTimeWithCriterium(Tz, out criteria);
                         
                         timeList.Add(time);
                         if (time >= Tz)
@@ -117,9 +138,7 @@ namespace newAlgorithm
                             {
                                 time = 0;
                                 continue;
-                            }
-
-                            
+                            }                     
 
                             PartyList[countParty][innerr.IndexOf(type)].RemoveAt(PartyList[countParty][innerr.IndexOf(type)].Count - 1);
                             while (PartyList[countParty].Count <= innerr.IndexOf(type))
@@ -145,7 +164,31 @@ namespace newAlgorithm
                 countParty++;
             }
 
-            return timeListResult;
+            var a = timeListResult.Select(i => i).ToList();
+
+            a.Sort();
+            a.Reverse();
+
+            var partyList = new List<List<List<int>>>();
+
+            foreach (var timeInterval in a.Take(countGroup))
+            {
+                partyList.Add(PartyList[timeListResult.IndexOf(timeInterval)]);
+            }
+
+            var critList = new List<int>();
+            var resTime = new List<int>();
+
+            timeListResult.Sort();
+            timeListResult.Reverse();
+            criteria = Tz * countGroup - timeListResult.Take(countGroup).Sum();
+
+
+            firstLevelCrit = partyList.Select(list => list.Select(ints => ints.Sum()).Sum()).Sum();
+
+            timeListResult.Sort();
+            timeListResult.Reverse();
+            return timeListResult.Take(countGroup).ToList();
         }
 
         private List<List<int>> BuildR(List<List<int>> N)

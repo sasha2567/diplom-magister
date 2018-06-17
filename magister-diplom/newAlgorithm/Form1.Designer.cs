@@ -42,6 +42,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.OptimizationSecondLevel = new System.Windows.Forms.CheckBox();
             this.label10 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -64,7 +65,6 @@
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.label7 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.OptimizationSecondLevel = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -262,6 +262,16 @@
             this.tabPage1.UseVisualStyleBackColor = true;
             this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
             // 
+            // OptimizationSecondLevel
+            // 
+            this.OptimizationSecondLevel.AutoSize = true;
+            this.OptimizationSecondLevel.Location = new System.Drawing.Point(526, 199);
+            this.OptimizationSecondLevel.Name = "OptimizationSecondLevel";
+            this.OptimizationSecondLevel.Size = new System.Drawing.Size(120, 21);
+            this.OptimizationSecondLevel.TabIndex = 31;
+            this.OptimizationSecondLevel.Text = "Оптимизация";
+            this.OptimizationSecondLevel.UseVisualStyleBackColor = true;
+            // 
             // label10
             // 
             this.label10.AutoSize = true;
@@ -309,7 +319,7 @@
             this.OldSecondLevelAll.Name = "OldSecondLevelAll";
             this.OldSecondLevelAll.Size = new System.Drawing.Size(140, 27);
             this.OldSecondLevelAll.TabIndex = 26;
-            this.OldSecondLevelAll.Text = "прогон";
+            this.OldSecondLevelAll.Text = "Га + Группы";
             this.OldSecondLevelAll.UseVisualStyleBackColor = true;
             this.OldSecondLevelAll.Click += new System.EventHandler(this.OldSecondLevelAll_Click);
             // 
@@ -320,7 +330,7 @@
             this.OldSecondLevelButton.Name = "OldSecondLevelButton";
             this.OldSecondLevelButton.Size = new System.Drawing.Size(141, 28);
             this.OldSecondLevelButton.TabIndex = 25;
-            this.OldSecondLevelButton.Text = "Второй уровень старый";
+            this.OldSecondLevelButton.Text = "Трехуровневая задача";
             this.OldSecondLevelButton.UseVisualStyleBackColor = true;
             this.OldSecondLevelButton.Click += new System.EventHandler(this.OldSecondLevelButton_Click);
             // 
@@ -519,16 +529,6 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(373, 354);
             this.dataGridView1.TabIndex = 17;
-            // 
-            // OptimizationSecondLevel
-            // 
-            this.OptimizationSecondLevel.AutoSize = true;
-            this.OptimizationSecondLevel.Location = new System.Drawing.Point(526, 199);
-            this.OptimizationSecondLevel.Name = "OptimizationSecondLevel";
-            this.OptimizationSecondLevel.Size = new System.Drawing.Size(120, 21);
-            this.OptimizationSecondLevel.TabIndex = 31;
-            this.OptimizationSecondLevel.Text = "Оптимизация";
-            this.OptimizationSecondLevel.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 

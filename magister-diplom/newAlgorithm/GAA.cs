@@ -336,7 +336,7 @@ namespace newAlgorithm
             return CountTime.ToArray().Min();
         }
 
-        public int[] calcFitnessList()
+        public int[] calcGAFitnessList()
         {
             var r = ToArrayList();
             List<int> CountTime = new List<int>();
@@ -362,7 +362,30 @@ namespace newAlgorithm
         }
 
 
+        public List<List<int>> calcFitnessList()
+        {
+            var r = ToArrayList();
+            var FitnessList = new List<int>();
+            var tuple = new Dictionary<int, List<List<int>>>();
+            var listint = new List<int>();
+            foreach (var elem in r)
+            {
+               
+                var shedule = new Shedule(elem);
+               
+                var time = shedule.GetTime();
+                
+                if(tuple.ContainsKey(time))
+                    continue;
+                tuple.Add(time, elem);
+                listint.Add(time);
 
+
+
+            }
+
+            return tuple[listint.Min()];
+        }
 
         public List<List<List<int>>> ToArrayList()
         {
