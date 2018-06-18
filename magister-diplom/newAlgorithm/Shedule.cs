@@ -268,9 +268,10 @@ namespace newAlgorithm
         }
 
 
-        public int GetTimeWithCriterium(out int criterier)
+        public int GetTimeWithCriterium(int tz, out int crit)
         {
-            criterier = 0;
+            var criterier = 0;
+            ConstructShedule();
 
             for (int numberPocess = 0; numberPocess < L; numberPocess++)
             {
@@ -281,9 +282,11 @@ namespace newAlgorithm
                         criterier += _endProcessing[numberPocess][numberBatch][numberWork] - _startProcessing[numberPocess][numberBatch][numberWork];
                     }
                 }
+
+                criterier -= _startProcessing[numberPocess][0][0];
             }
 
-            ConstructShedule();
+            crit = (tz * L) - criterier;
             return _timeConstructShedule;
         }
 
