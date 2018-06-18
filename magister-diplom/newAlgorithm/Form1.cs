@@ -482,13 +482,14 @@ namespace newAlgorithm
             {
                 str = "first_task";
             }
-            var n_kom = Convert.ToInt64(textBox1.Text);
+            var n_kom = Convert.ToInt32(textBox1.Text);
             var rand = new Random();
             var temp = 0;
-            using (var fileOut = new StreamWriter(file + "All_" + str + "_" + n_kom + ".txt", true))
+            var n_kom_q = Convert.ToInt32(textBox2.Text);
+            using (var fileOut = new StreamWriter(file + "All_" + str + "_" + n_kom + "_" + n_kom_q + ".txt", true))
             {
                 timeSets = new List<List<int>>();
-                foreach(var n_kom_q in N_komplect_for_type)
+                //foreach(var n_kom_q in N_komplect_for_type)
                 {
                     for (int i = 0; i < n_kom; i++)
                     {
