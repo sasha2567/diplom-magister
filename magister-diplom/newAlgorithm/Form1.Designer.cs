@@ -42,6 +42,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.OptimizationSecondLevel = new System.Windows.Forms.CheckBox();
             this.label10 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -65,10 +66,6 @@
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.label7 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-<<<<<<< HEAD
-            this.textBox2 = new System.Windows.Forms.TextBox();
-=======
->>>>>>> 07069544ab4c4e52d9bd9b86bd44fe6bf3ddca45
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -246,26 +243,27 @@
             this.tabPage1.Controls.Add(this.timeTreatmentingTB);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(607, 346);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Установка параметров";
             this.tabPage1.UseVisualStyleBackColor = true;
             this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
             // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(317, 105);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 20);
+            this.textBox2.TabIndex = 32;
+            // 
             // OptimizationSecondLevel
             // 
             this.OptimizationSecondLevel.AutoSize = true;
-<<<<<<< HEAD
-            this.OptimizationSecondLevel.Location = new System.Drawing.Point(394, 162);
-            this.OptimizationSecondLevel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.OptimizationSecondLevel.Location = new System.Drawing.Point(487, 194);
+            this.OptimizationSecondLevel.Margin = new System.Windows.Forms.Padding(2);
             this.OptimizationSecondLevel.Name = "OptimizationSecondLevel";
             this.OptimizationSecondLevel.Size = new System.Drawing.Size(95, 17);
-=======
-            this.OptimizationSecondLevel.Location = new System.Drawing.Point(526, 199);
-            this.OptimizationSecondLevel.Name = "OptimizationSecondLevel";
-            this.OptimizationSecondLevel.Size = new System.Drawing.Size(120, 21);
->>>>>>> 07069544ab4c4e52d9bd9b86bd44fe6bf3ddca45
             this.OptimizationSecondLevel.TabIndex = 31;
             this.OptimizationSecondLevel.Text = "Оптимизация";
             this.OptimizationSecondLevel.UseVisualStyleBackColor = true;
@@ -309,7 +307,7 @@
             // OldSecondLevelAll
             // 
             this.OldSecondLevelAll.Location = new System.Drawing.Point(285, 138);
-            this.OldSecondLevelAll.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.OldSecondLevelAll.Margin = new System.Windows.Forms.Padding(2);
             this.OldSecondLevelAll.Name = "OldSecondLevelAll";
             this.OldSecondLevelAll.Size = new System.Drawing.Size(105, 22);
             this.OldSecondLevelAll.TabIndex = 26;
@@ -320,7 +318,7 @@
             // OldSecondLevelButton
             // 
             this.OldSecondLevelButton.Location = new System.Drawing.Point(284, 162);
-            this.OldSecondLevelButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.OldSecondLevelButton.Margin = new System.Windows.Forms.Padding(2);
             this.OldSecondLevelButton.Name = "OldSecondLevelButton";
             this.OldSecondLevelButton.Size = new System.Drawing.Size(106, 23);
             this.OldSecondLevelButton.TabIndex = 25;
@@ -466,7 +464,7 @@
             this.tabPage2.Controls.Add(this.dataGridView1);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(607, 346);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Установка времени";
@@ -508,16 +506,6 @@
             this.dataGridView1.Size = new System.Drawing.Size(280, 288);
             this.dataGridView1.TabIndex = 17;
             // 
-<<<<<<< HEAD
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(317, 105);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 32;
-            // 
-=======
->>>>>>> 07069544ab4c4e52d9bd9b86bd44fe6bf3ddca45
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);

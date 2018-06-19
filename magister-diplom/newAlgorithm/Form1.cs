@@ -376,7 +376,7 @@ namespace newAlgorithm
         private void OldSecondLevelButton_Click(object sender, EventArgs e)
         {
             var massi = new[] { 2, 4, 8, 16, 32 };
-            using (var file = new StreamWriter( $"Фиксированные партии - {checkBox1.Checked}, оптимизации групп {OptimizationSecondLevel.Checked} N={numericUpDown1.Value} L={LTB.Text}.txt", false))
+            using (var file = new StreamWriter("Фиксированные партии - " +checkBox1.Checked +", оптимизации групп " + OptimizationSecondLevel.Checked + " N=" + numericUpDown1.Value + " L=" + LTB.Text + ".txt", false))
             {
                 foreach (var intt in massi)
                 {
@@ -416,13 +416,13 @@ namespace newAlgorithm
                                     : oldSecondLevel.CalcOptimalFitnessList(firstLevel._a, out criteria, out flCrit);
                                 var stringTime = listInt.Select(i => i.ToString());
                                 var join = string.Join(" ", stringTime);
-                                file.WriteLine($"Tz = {tz} {Environment.NewLine}" +
-                                               $"Tp = {intt} {Environment.NewLine}" +
-                                               $"Z = {countGroup} {Environment.NewLine}" +
-                                               $"Crit = {criteria} {Environment.NewLine}" +
-                                               $"fLCrit = {flCrit} {Environment.NewLine}" +
-                                               $"To = {item} {Environment.NewLine}" +
-                                               $"{listInt.Sum()}({join}) {Environment.NewLine}{Environment.NewLine}");
+                                file.WriteLine("Tz = " + tz.ToString() + Environment.NewLine +
+                                               "Tp = " + intt + Environment.NewLine +
+                                               "Z = " + countGroup + Environment.NewLine +
+                                               "Crit = " + criteria + Environment.NewLine +
+                                               "fLCrit = " + flCrit +  Environment.NewLine +
+                                               "To = " + item  + Environment.NewLine +
+                                               listInt.Sum().ToString() + join  + Environment.NewLine + Environment.NewLine);
                             }
                         }
                     }
@@ -449,7 +449,7 @@ namespace newAlgorithm
         private void OldSecondLevelAll_Click(object sender, EventArgs e)
         {
             var massi = new[] { 2, 4, 8, 16, 32 };
-            using (var file = new StreamWriter($"Га, оптимизации групп {OptimizationSecondLevel.Checked} N={numericUpDown1.Value} L={LTB.Text}.txt", false))
+            using (var file = new StreamWriter("Га, оптимизации групп " +OptimizationSecondLevel.Checked +" N=" + numericUpDown1.Value + "L=" + LTB.Text + ".txt", false))
             {
                 foreach (var intt in massi)
                 {
@@ -494,13 +494,13 @@ namespace newAlgorithm
                                     : oldSecondLevel.CalcOptimalFitnessList(sostav, out criteria, out flCrit);
                                 var stringTime = listInt.Select(i => i.ToString());
                                 var join = string.Join(" ", stringTime);
-                                file.WriteLine($"Tz = {tz} {Environment.NewLine}" +
-                                               $"Tp = {intt} {Environment.NewLine}" +
-                                               $"Z = {countGroup} {Environment.NewLine}" +
-                                               $"Crit = {criteria} {Environment.NewLine}" +
-                                               $"fLCrit = {flCrit} {Environment.NewLine}" +
-                                               $"To = {item} {Environment.NewLine}" +
-                                               $"{listInt.Sum()}({join}) {Environment.NewLine}{Environment.NewLine}");
+                                file.WriteLine("Tz = " + tz.ToString() + Environment.NewLine +
+                                               "Tp = " + intt + Environment.NewLine +
+                                               "Z = " + countGroup + Environment.NewLine +
+                                               "Crit = " + criteria + Environment.NewLine +
+                                               "fLCrit = " + flCrit +  Environment.NewLine +
+                                               "To = " + item  + Environment.NewLine +
+                                               listInt.Sum().ToString() + join  + Environment.NewLine + Environment.NewLine);
                             }
                         }
                     }
