@@ -376,58 +376,71 @@ namespace newAlgorithm
         private void OldSecondLevelButton_Click(object sender, EventArgs e)
         {
             var massi = new[] { 2, 4, 8, 16, 32 };
-            using (var file = new StreamWriter( $"Фиксированные партии - {checkBox1.Checked}, оптимизации групп {OptimizationSecondLevel.Checked} N={numericUpDown1.Value} L={LTB.Text}.txt", false))
+            var Nl = new[] {5, 10};
+            using (var file =
+                new StreamWriter(
+                    $"Фиксированные партии - {checkBox1.Checked}, оптимизации групп {OptimizationSecondLevel.Checked} N={numericUpDown1.Value} L={LTB.Text}.txt",
+                    false))
             {
-                foreach (var intt in massi)
+                foreach (var N in Nl)
                 {
-                    timeSwitchingTB.Text = intt.ToString();
-                    foreach (var item in massi)
+                    foreach (var l in Nl)
                     {
-                        for (var tz = 50; tz <= 200; tz = tz + 50)
+                        foreach (var intt in massi)
                         {
-                            for (var countGroup = 2; countGroup <= 8; countGroup += 2)
+                            timeSwitchingTB.Text = intt.ToString();
+                            LTB.Text = l.ToString();
+                            foreach (var item in massi)
                             {
-
-
-                                timeTreatmentingTB.Text = item.ToString();
-                                _countType = (int) numericUpDown1.Value;
-                                _countBatches = Convert.ToInt32(countBatchesTB.Text);
-                                var listCountButches = new List<int>();
-                                for (var ii = 0; ii < _countType; ii++)
+                                for (var tz = 50; tz <= 200; tz = tz + 50)
                                 {
-                                    listCountButches.Add(_countBatches);
+                                    for (var countGroup = 2; countGroup <= 8; countGroup += 2)
+                                    {
+                                        numericUpDown1.Text = N.ToString();
+                                        timeTreatmentingTB.Text = item.ToString();
+                                        _countType = (int) numericUpDown1.Value;
+                                        _countBatches = Convert.ToInt32(countBatchesTB.Text);
+                                        var listCountButches = new List<int>();
+                                        for (var ii = 0; ii < _countType; ii++)
+                                        {
+                                            listCountButches.Add(_countBatches);
+                                        }
+
+                                        _l = Convert.ToInt32(LTB.Text);
+                                        _maxS = Convert.ToInt32(timeSwitchingTB.Text);
+                                        _maxT = Convert.ToInt32(timeTreatmentingTB.Text);
+                                        GetTime();
+                                        Shedule.L = _l;
+                                        Shedule.Switching = _temptS;
+                                        Shedule.Treatment = _temptT;
+                                        var firstLevel = new FirstLevel(_countType, listCountButches,
+                                            checkBox1.Checked);
+                                        firstLevel.GenetateSolutionForAllTypes("outputFirstAlgorithm.txt");
+                                        var oldSecondLevel = new OldSecondLevel(tz, countGroup, _l);
+
+                                        int criteria;
+                                        int flCrit;
+                                        var listInt = !OptimizationSecondLevel.Checked
+                                            ? oldSecondLevel.CalcFitnessList(firstLevel._a, out criteria, out flCrit)
+                                            : oldSecondLevel.CalcOptimalFitnessList(firstLevel._a, out criteria,
+                                                out flCrit);
+                                        var stringTime = listInt.Select(i => i.ToString());
+                                        var join = string.Join(" ", stringTime);
+                                        file.WriteLine($"Tz = {tz} {Environment.NewLine}" +
+                                                       $"Tp = {intt} {Environment.NewLine}" +
+                                                       $"Z = {countGroup} {Environment.NewLine}" +
+                                                       $"Crit = {criteria} {Environment.NewLine}" +
+                                                       $"fLCrit = {flCrit} {Environment.NewLine}" +
+                                                       $"To = {item} {Environment.NewLine}" +
+                                                       $"{listInt.Sum()}({join}) {Environment.NewLine}{Environment.NewLine}");
+                                    }
                                 }
-
-                                _l = Convert.ToInt32(LTB.Text);
-                                _maxS = Convert.ToInt32(timeSwitchingTB.Text);
-                                _maxT = Convert.ToInt32(timeTreatmentingTB.Text);
-                                GetTime();
-                                Shedule.L = _l;
-                                Shedule.Switching = _temptS;
-                                Shedule.Treatment = _temptT;
-                                var firstLevel = new FirstLevel(_countType, listCountButches, checkBox1.Checked);
-                                firstLevel.GenetateSolutionForAllTypes("outputFirstAlgorithm.txt");
-                                var oldSecondLevel = new OldSecondLevel(tz, countGroup, _l);
-
-                                int criteria;
-                                int flCrit;
-                                var listInt = !OptimizationSecondLevel.Checked
-                                    ? oldSecondLevel.CalcFitnessList(firstLevel._a, out criteria, out flCrit)
-                                    : oldSecondLevel.CalcOptimalFitnessList(firstLevel._a, out criteria, out flCrit);
-                                var stringTime = listInt.Select(i => i.ToString());
-                                var join = string.Join(" ", stringTime);
-                                file.WriteLine($"Tz = {tz} {Environment.NewLine}" +
-                                               $"Tp = {intt} {Environment.NewLine}" +
-                                               $"Z = {countGroup} {Environment.NewLine}" +
-                                               $"Crit = {criteria} {Environment.NewLine}" +
-                                               $"fLCrit = {flCrit} {Environment.NewLine}" +
-                                               $"To = {item} {Environment.NewLine}" +
-                                               $"{listInt.Sum()}({join}) {Environment.NewLine}{Environment.NewLine}");
                             }
                         }
                     }
                 }
             }
+
             MessageBox.Show(@"Решения найдены");
         }
 
