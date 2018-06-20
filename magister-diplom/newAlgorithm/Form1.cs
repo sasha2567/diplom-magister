@@ -178,9 +178,9 @@ namespace newAlgorithm
 
         private void button2_Click(object sender, EventArgs e)
         {
-            int[] N_komplect_type = {2, 4};
-            int[] N_komplect_for_type = {2, 4, 6};
-            int[] N_komplect_sostav = {2, 4, 6};
+            int[] N_komplect_type = {2};
+            int[] N_komplect_for_type = {2, 4};
+            int[] N_komplect_sostav = {2, 4};
             int[] n = {5, 10};
             int[] l = {5, 10};
             int[] time = {2, 4, 8, 16, 32};
@@ -198,11 +198,11 @@ namespace newAlgorithm
                             var temp = rand.Next(10);
                             if (temp > 5)
                             {
-                                temp = 140;
+                                temp = 150;
                             }
                             else
                             {
-                                temp = 105;
+                                temp = 100;
                             }
                             compositionSets.Add(new List<int>());
                             timeSets.Add(new List<int>());
