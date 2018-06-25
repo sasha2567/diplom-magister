@@ -184,7 +184,7 @@ namespace newAlgorithm
             int[] n = {5, 10};
             int[] l = {5, 10};
             int[] time = {2, 4, 8, 16, 32};
-            using (var file = new StreamWriter("11.txt"))
+            using (var file = new StreamWriter("11 - " + checkBox2.Checked + ".txt", false))
             {
                 foreach (var n_kom in N_komplect_type)
                 {
@@ -273,8 +273,8 @@ namespace newAlgorithm
 
                                             var gaa = new GAA(_countType, listCountButches, checkBox1.Checked, _countBatches);
 
-                                            gaa.SetXrom((int)numericUpDown2.Value);
-                                            var result = gaa.calcSetsFitnessList(compositionSets, timeSets , checkBox2.Checked);
+                                            
+                                            var result = gaa.calcSetsFitnessList(checkBox2.Checked, GenerationCounter.Value, (int)numericUpDown2.Value);
 
                                             file.WriteLine(result);
                                         }
@@ -517,7 +517,6 @@ namespace newAlgorithm
         private void button4_Click(object sender, EventArgs e)
         {
             Form1.direct = checkBox2.Checked;
-            int[] N_komplect_for_type = { 2, 4 };
             int[] N_komplect_sostav = { 2, 4 };
             int[] n = { 5, 10 };
             int[] l = { 5, 10 };
@@ -533,7 +532,7 @@ namespace newAlgorithm
             var rand = new Random();
             var temp = 0;
             var n_kom_q = Convert.ToInt32(textBox2.Text);
-            using (var fileOut = new StreamWriter(file + "All_" + str + "_" + n_kom + "_" + n_kom_q + ".txt", true))
+            using (var fileOut = new StreamWriter(file + "All_" + str + "_" + n_kom + "_" + n_kom_q + "_new.txt", true))
             {
                 timeSets = new List<List<int>>();
                 //foreach(var n_kom_q in N_komplect_for_type)
@@ -584,6 +583,10 @@ namespace newAlgorithm
                                 fileOut.WriteLine("Kq=" + n_kom_q);
                                 fileOut.WriteLine("Kqs=" + n_kom_s);
                                 fileOut.WriteLine("N=" + t + "L=" + _countLine);
+                                fileOut.WriteLine("Times");
+                                fileOut.WriteLine(printArray(timeSets));
+                                fileOut.WriteLine("Compositions");
+                                fileOut.WriteLine(printArray(compositionSets));
                                 foreach (var t2 in time)
                                 {
                                     foreach (var t3 in time)
@@ -615,12 +618,15 @@ namespace newAlgorithm
                                         }
                                         var firstLevel = new FirstLevel(_countType, listCountButches, checkBox1.Checked);
                                         var result = firstLevel.GenetateSolutionForAllTypesSecondAlgorithm();
-                                        var first = Convert.ToInt32(result[0]);
-                                        var top = Convert.ToInt32(result[1]);
-                                        fileOut.WriteLine(first + "\t" + top);
+
+                                        var gaa = new GAA(_countType, listCountButches, checkBox1.Checked, _countBatches);
+                                        var resultGaa = gaa.calcSetsFitnessList(checkBox2.Checked, GenerationCounter.Value, (int)numericUpDown2.Value);
+                                        
+                                        var first = result[0];
+                                        var top = result[1];
+                                        fileOut.WriteLine(first + "\t" + top + "\t" + resultGaa);
                                     }
                                 }
-                                fileOut.WriteLine();
                             }
                         }
                     }
@@ -628,6 +634,20 @@ namespace newAlgorithm
                 fileOut.Close();
             }
             MessageBox.Show("Тестовый прогон завершен");
+        }
+
+        private string printArray(List<List<int>> arr)
+        {
+            var str = "";
+            foreach (var row in arr)
+            {
+                foreach (var column in row)
+                {
+                    str += column + "\t";
+                }
+                str += "\r\n";
+            }
+            return str;
         }
 
         private void button5_Click(object sender, EventArgs e)
