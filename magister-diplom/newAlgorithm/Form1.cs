@@ -376,16 +376,18 @@ namespace newAlgorithm
         private void OldSecondLevelButton_Click(object sender, EventArgs e)
         {
             var massi = new[] { 2, 4, 8, 16, 32 };
-            var Nl = new[] {5, 10};
-            using (var file =
-                new StreamWriter(
-                    $"Фиксированные партии - {checkBox1.Checked}, оптимизации групп {OptimizationSecondLevel.Checked} N={numericUpDown1.Value} L={LTB.Text}.txt",
-                    false))
-            {
-                foreach (var N in Nl)
+            var n1 = new[] {5, 10};
+            var l1 = new[] {5, 10};
+            
+                foreach (var N in n1.Select(i => i ))
                 {
-                    foreach (var l in Nl)
+                    foreach (var l in l1.Select(i => i))
                     {
+                        using (var file =
+                            new StreamWriter(
+                                $"Фиксированные партии - {checkBox1.Checked}, оптимизации групп {OptimizationSecondLevel.Checked} N={numericUpDown1.Value} L={LTB.Text}.txt",
+                                false))
+                        {
                         foreach (var intt in massi)
                         {
                             timeSwitchingTB.Text = intt.ToString();
@@ -426,7 +428,7 @@ namespace newAlgorithm
                                                 out flCrit);
                                         var stringTime = listInt.Select(i => i.ToString());
                                         var join = string.Join(" ", stringTime);
-                                        file.WriteLine($"Tz = {tz} {Environment.NewLine}" +
+                                         file.WriteLine($"Tz = {tz} {Environment.NewLine}" +
                                                        $"Tp = {intt} {Environment.NewLine}" +
                                                        $"Z = {countGroup} {Environment.NewLine}" +
                                                        $"Crit = {criteria} {Environment.NewLine}" +
