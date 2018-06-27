@@ -7,8 +7,8 @@
     <ProjectGuid>{190E5A1C-698B-43F9-8674-5C4360CAA047}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>newAlgorithm</RootNamespace>
-    <AssemblyName>newAlgorithm</AssemblyName>
+    <RootNamespace>magisterDiplom</RootNamespace>
+    <AssemblyName>magister-diplom</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

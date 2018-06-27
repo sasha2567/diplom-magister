@@ -318,19 +318,34 @@ namespace newAlgorithm
             return result;
         }
 
-        public int calcSetsFitnessList(List<List<int>> compositionSets, List<List<int>> timeSets , bool directedTime)
+        public int calcSetsFitnessList(bool directedTime , decimal GenerationCount,int countHromos = 50)
         {
+            var flagmanHromosom = new List<List<int>>();
+
+            
+            for (var i = 0; i < _countType; i++)
+            {
+                flagmanHromosom.Add( new List<int> {_n - 2 ,  2});
+            }
+                
+
             var r = ToArrayList();
-            var test = new Sets(compositionSets, timeSets);
+            var test = new Sets(Form1.compositionSets, Form1.timeSets);
             var FitnessList = new List<int>();
             List<int> CountTime = new List<int>();
-            var GaaSecondLevel = new GaaSecondLevel();
-            foreach (var elem in r)
+
+            for (int i = 0; i < GenerationCount + 1; i++)
             {
-                var shedule = new Shedule(elem);
-                shedule.ConstructShedule();   
-                test.GetSolution(shedule.RetyrnR());
-                CountTime.Add(test.GetNewCriterion(directedTime));          
+                this.SetXrom(countHromos);
+                r = ToArrayList();
+                r.Add(flagmanHromosom);
+                foreach (var elem in r)
+                {
+                    var shedule = new Shedule(elem);
+                    shedule.ConstructShedule();
+                    test.GetSolution(shedule.RetyrnR());
+                    CountTime.Add(test.GetNewCriterion(directedTime));
+                }
             }
            
             return CountTime.ToArray().Min();

@@ -66,6 +66,7 @@
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.label7 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.GenerationCounter = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -73,6 +74,7 @@
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GenerationCounter)).BeginInit();
             this.SuspendLayout();
             // 
             // numericUpDown1
@@ -154,7 +156,7 @@
             // 
             // LTB
             // 
-            this.LTB.Location = new System.Drawing.Point(161, 119);
+            this.LTB.Location = new System.Drawing.Point(159, 111);
             this.LTB.Name = "LTB";
             this.LTB.Size = new System.Drawing.Size(119, 20);
             this.LTB.TabIndex = 7;
@@ -182,7 +184,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(160, 100);
+            this.label5.Location = new System.Drawing.Point(166, 95);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(97, 13);
             this.label5.TabIndex = 10;
@@ -210,6 +212,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.GenerationCounter);
             this.tabPage1.Controls.Add(this.textBox2);
             this.tabPage1.Controls.Add(this.OptimizationSecondLevel);
             this.tabPage1.Controls.Add(this.label10);
@@ -506,6 +509,18 @@
             this.dataGridView1.Size = new System.Drawing.Size(280, 288);
             this.dataGridView1.TabIndex = 17;
             // 
+            // GenerationCounter
+            // 
+            this.GenerationCounter.Location = new System.Drawing.Point(287, 188);
+            this.GenerationCounter.Name = "GenerationCounter";
+            this.GenerationCounter.Size = new System.Drawing.Size(103, 20);
+            this.GenerationCounter.TabIndex = 33;
+            this.GenerationCounter.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -523,6 +538,7 @@
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GenerationCounter)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -567,6 +583,7 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.CheckBox OptimizationSecondLevel;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.NumericUpDown GenerationCounter;
     }
 }
 

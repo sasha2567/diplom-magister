@@ -178,13 +178,13 @@ namespace newAlgorithm
 
         private void button2_Click(object sender, EventArgs e)
         {
-            int[] N_komplect_type = {2, 4};
-            int[] N_komplect_for_type = {2, 4, 6};
-            int[] N_komplect_sostav = {2, 4, 6};
+            int[] N_komplect_type = {2};
+            int[] N_komplect_for_type = {2, 4};
+            int[] N_komplect_sostav = {2, 4};
             int[] n = {5, 10};
             int[] l = {5, 10};
             int[] time = {2, 4, 8, 16, 32};
-            using (var file = new StreamWriter("11.txt"))
+            using (var file = new StreamWriter("11 - " + checkBox2.Checked + ".txt", false))
             {
                 foreach (var n_kom in N_komplect_type)
                 {
@@ -198,11 +198,11 @@ namespace newAlgorithm
                             var temp = rand.Next(10);
                             if (temp > 5)
                             {
-                                temp = 140;
+                                temp = 150;
                             }
                             else
                             {
-                                temp = 105;
+                                temp = 100;
                             }
                             compositionSets.Add(new List<int>());
                             timeSets.Add(new List<int>());
@@ -273,8 +273,8 @@ namespace newAlgorithm
 
                                             var gaa = new GAA(_countType, listCountButches, checkBox1.Checked, _countBatches);
 
-                                            gaa.SetXrom((int)numericUpDown2.Value);
-                                            var result = gaa.calcSetsFitnessList(compositionSets, timeSets , checkBox2.Checked);
+                                            
+                                            var result = gaa.calcSetsFitnessList(checkBox2.Checked, GenerationCounter.Value, (int)numericUpDown2.Value);
 
                                             file.WriteLine(result);
                                         }
@@ -376,73 +376,58 @@ namespace newAlgorithm
         private void OldSecondLevelButton_Click(object sender, EventArgs e)
         {
             var massi = new[] { 2, 4, 8, 16, 32 };
-            var n1 = new[] {5, 10};
-            var l1 = new[] {5, 10};
-            
-                foreach (var N in n1.Select(i => i ))
+            using (var file = new StreamWriter("Фиксированные партии - " +checkBox1.Checked +", оптимизации групп " + OptimizationSecondLevel.Checked + " N=" + numericUpDown1.Value + " L=" + LTB.Text + ".txt", false))
+            {
+                foreach (var intt in massi)
                 {
-                    foreach (var l in l1.Select(i => i))
+                    timeSwitchingTB.Text = intt.ToString();
+                    foreach (var item in massi)
                     {
-                        using (var file =
-                            new StreamWriter(
-                                $"Фиксированные партии - {checkBox1.Checked}, оптимизации групп {OptimizationSecondLevel.Checked} N={numericUpDown1.Value} L={LTB.Text}.txt",
-                                false))
+                        for (var tz = 50; tz <= 200; tz = tz + 50)
                         {
-                        foreach (var intt in massi)
-                        {
-                            timeSwitchingTB.Text = intt.ToString();
-                            LTB.Text = l.ToString();
-                            foreach (var item in massi)
+                            for (var countGroup = 2; countGroup <= 8; countGroup += 2)
                             {
-                                for (var tz = 50; tz <= 200; tz = tz + 50)
+
+
+                                timeTreatmentingTB.Text = item.ToString();
+                                _countType = (int) numericUpDown1.Value;
+                                _countBatches = Convert.ToInt32(countBatchesTB.Text);
+                                var listCountButches = new List<int>();
+                                for (var ii = 0; ii < _countType; ii++)
                                 {
-                                    for (var countGroup = 2; countGroup <= 8; countGroup += 2)
-                                    {
-                                        numericUpDown1.Text = N.ToString();
-                                        timeTreatmentingTB.Text = item.ToString();
-                                        _countType = (int) numericUpDown1.Value;
-                                        _countBatches = Convert.ToInt32(countBatchesTB.Text);
-                                        var listCountButches = new List<int>();
-                                        for (var ii = 0; ii < _countType; ii++)
-                                        {
-                                            listCountButches.Add(_countBatches);
-                                        }
-
-                                        _l = Convert.ToInt32(LTB.Text);
-                                        _maxS = Convert.ToInt32(timeSwitchingTB.Text);
-                                        _maxT = Convert.ToInt32(timeTreatmentingTB.Text);
-                                        GetTime();
-                                        Shedule.L = _l;
-                                        Shedule.Switching = _temptS;
-                                        Shedule.Treatment = _temptT;
-                                        var firstLevel = new FirstLevel(_countType, listCountButches,
-                                            checkBox1.Checked);
-                                        firstLevel.GenetateSolutionForAllTypes("outputFirstAlgorithm.txt");
-                                        var oldSecondLevel = new OldSecondLevel(tz, countGroup, _l);
-
-                                        int criteria;
-                                        int flCrit;
-                                        var listInt = !OptimizationSecondLevel.Checked
-                                            ? oldSecondLevel.CalcFitnessList(firstLevel._a, out criteria, out flCrit)
-                                            : oldSecondLevel.CalcOptimalFitnessList(firstLevel._a, out criteria,
-                                                out flCrit);
-                                        var stringTime = listInt.Select(i => i.ToString());
-                                        var join = string.Join(" ", stringTime);
-                                         file.WriteLine($"Tz = {tz} {Environment.NewLine}" +
-                                                       $"Tp = {intt} {Environment.NewLine}" +
-                                                       $"Z = {countGroup} {Environment.NewLine}" +
-                                                       $"Crit = {criteria} {Environment.NewLine}" +
-                                                       $"fLCrit = {flCrit} {Environment.NewLine}" +
-                                                       $"To = {item} {Environment.NewLine}" +
-                                                       $"{listInt.Sum()}({join}) {Environment.NewLine}{Environment.NewLine}");
-                                    }
+                                    listCountButches.Add(_countBatches);
                                 }
+
+                                _l = Convert.ToInt32(LTB.Text);
+                                _maxS = Convert.ToInt32(timeSwitchingTB.Text);
+                                _maxT = Convert.ToInt32(timeTreatmentingTB.Text);
+                                GetTime();
+                                Shedule.L = _l;
+                                Shedule.Switching = _temptS;
+                                Shedule.Treatment = _temptT;
+                                var firstLevel = new FirstLevel(_countType, listCountButches, checkBox1.Checked);
+                                firstLevel.GenetateSolutionForAllTypes("outputFirstAlgorithm.txt");
+                                var oldSecondLevel = new OldSecondLevel(tz, countGroup, _l);
+
+                                int criteria;
+                                int flCrit;
+                                var listInt = !OptimizationSecondLevel.Checked
+                                    ? oldSecondLevel.CalcFitnessList(firstLevel._a, out criteria, out flCrit)
+                                    : oldSecondLevel.CalcOptimalFitnessList(firstLevel._a, out criteria, out flCrit);
+                                var stringTime = listInt.Select(i => i.ToString());
+                                var join = string.Join(" ", stringTime);
+                                file.WriteLine("Tz = " + tz.ToString() + Environment.NewLine +
+                                               "Tp = " + intt + Environment.NewLine +
+                                               "Z = " + countGroup + Environment.NewLine +
+                                               "Crit = " + criteria + Environment.NewLine +
+                                               "fLCrit = " + flCrit +  Environment.NewLine +
+                                               "To = " + item  + Environment.NewLine +
+                                               listInt.Sum().ToString() + join  + Environment.NewLine + Environment.NewLine);
                             }
                         }
                     }
                 }
             }
-
             MessageBox.Show(@"Решения найдены");
         }
 
@@ -464,7 +449,7 @@ namespace newAlgorithm
         private void OldSecondLevelAll_Click(object sender, EventArgs e)
         {
             var massi = new[] { 2, 4, 8, 16, 32 };
-            using (var file = new StreamWriter($"Га, оптимизации групп {OptimizationSecondLevel.Checked} N={numericUpDown1.Value} L={LTB.Text}.txt", false))
+            using (var file = new StreamWriter("Га, оптимизации групп " +OptimizationSecondLevel.Checked +" N=" + numericUpDown1.Value + "L=" + LTB.Text + ".txt", false))
             {
                 foreach (var intt in massi)
                 {
@@ -509,13 +494,13 @@ namespace newAlgorithm
                                     : oldSecondLevel.CalcOptimalFitnessList(sostav, out criteria, out flCrit);
                                 var stringTime = listInt.Select(i => i.ToString());
                                 var join = string.Join(" ", stringTime);
-                                file.WriteLine($"Tz = {tz} {Environment.NewLine}" +
-                                               $"Tp = {intt} {Environment.NewLine}" +
-                                               $"Z = {countGroup} {Environment.NewLine}" +
-                                               $"Crit = {criteria} {Environment.NewLine}" +
-                                               $"fLCrit = {flCrit} {Environment.NewLine}" +
-                                               $"To = {item} {Environment.NewLine}" +
-                                               $"{listInt.Sum()}({join}) {Environment.NewLine}{Environment.NewLine}");
+                                file.WriteLine("Tz = " + tz.ToString() + Environment.NewLine +
+                                               "Tp = " + intt + Environment.NewLine +
+                                               "Z = " + countGroup + Environment.NewLine +
+                                               "Crit = " + criteria + Environment.NewLine +
+                                               "fLCrit = " + flCrit +  Environment.NewLine +
+                                               "To = " + item  + Environment.NewLine +
+                                               listInt.Sum().ToString() + join  + Environment.NewLine + Environment.NewLine);
                             }
                         }
                     }
@@ -532,7 +517,6 @@ namespace newAlgorithm
         private void button4_Click(object sender, EventArgs e)
         {
             Form1.direct = checkBox2.Checked;
-            int[] N_komplect_for_type = { 2, 4 };
             int[] N_komplect_sostav = { 2, 4 };
             int[] n = { 5, 10 };
             int[] l = { 5, 10 };
@@ -544,13 +528,14 @@ namespace newAlgorithm
             {
                 str = "first_task";
             }
-            var n_kom = Convert.ToInt64(textBox1.Text);
+            var n_kom = Convert.ToInt32(textBox1.Text);
             var rand = new Random();
             var temp = 0;
-            using (var fileOut = new StreamWriter(file + "All_" + str + "_" + n_kom + ".txt", true))
+            var n_kom_q = Convert.ToInt32(textBox2.Text);
+            using (var fileOut = new StreamWriter(file + "All_" + str + "_" + n_kom + "_" + n_kom_q + "_new.txt", true))
             {
                 timeSets = new List<List<int>>();
-                foreach(var n_kom_q in N_komplect_for_type)
+                //foreach(var n_kom_q in N_komplect_for_type)
                 {
                     for (int i = 0; i < n_kom; i++)
                     {
@@ -598,6 +583,10 @@ namespace newAlgorithm
                                 fileOut.WriteLine("Kq=" + n_kom_q);
                                 fileOut.WriteLine("Kqs=" + n_kom_s);
                                 fileOut.WriteLine("N=" + t + "L=" + _countLine);
+                                fileOut.WriteLine("Times");
+                                fileOut.WriteLine(printArray(timeSets));
+                                fileOut.WriteLine("Compositions");
+                                fileOut.WriteLine(printArray(compositionSets));
                                 foreach (var t2 in time)
                                 {
                                     foreach (var t3 in time)
@@ -629,12 +618,15 @@ namespace newAlgorithm
                                         }
                                         var firstLevel = new FirstLevel(_countType, listCountButches, checkBox1.Checked);
                                         var result = firstLevel.GenetateSolutionForAllTypesSecondAlgorithm();
-                                        var first = Convert.ToInt32(result[0]);
-                                        var top = Convert.ToInt32(result[1]);
-                                        fileOut.WriteLine(first + "\t" + top);
+
+                                        var gaa = new GAA(_countType, listCountButches, checkBox1.Checked, _countBatches);
+                                        var resultGaa = gaa.calcSetsFitnessList(checkBox2.Checked, GenerationCounter.Value, (int)numericUpDown2.Value);
+                                        
+                                        var first = result[0];
+                                        var top = result[1];
+                                        fileOut.WriteLine(first + "\t" + top + "\t" + resultGaa);
                                     }
                                 }
-                                fileOut.WriteLine();
                             }
                         }
                     }
@@ -642,6 +634,20 @@ namespace newAlgorithm
                 fileOut.Close();
             }
             MessageBox.Show("Тестовый прогон завершен");
+        }
+
+        private string printArray(List<List<int>> arr)
+        {
+            var str = "";
+            foreach (var row in arr)
+            {
+                foreach (var column in row)
+                {
+                    str += column + "\t";
+                }
+                str += "\r\n";
+            }
+            return str;
         }
 
         private void button5_Click(object sender, EventArgs e)
