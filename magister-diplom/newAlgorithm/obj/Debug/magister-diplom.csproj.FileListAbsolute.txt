@@ -36,3 +36,12 @@ D:\Универ\Диплом\magister-diplom\newAlgorithm\bin\Debug\magister-dip
 D:\Универ\Диплом\magister-diplom\newAlgorithm\obj\Debug\magisterDiplom.Properties.Resources.resources
 D:\Универ\Диплом\magister-diplom\newAlgorithm\obj\Debug\magister-diplom.exe
 D:\Универ\Диплом\magister-diplom\newAlgorithm\obj\Debug\magister-diplom.pdb
+F:\Универ\Диплом\magister-diplom\newAlgorithm\bin\Debug\magister-diplom.exe.config
+F:\Универ\Диплом\magister-diplom\newAlgorithm\bin\Debug\magister-diplom.exe
+F:\Универ\Диплом\magister-diplom\newAlgorithm\bin\Debug\magister-diplom.pdb
+F:\Универ\Диплом\magister-diplom\newAlgorithm\obj\Debug\magister-diplom.csprojResolveAssemblyReference.cache
+F:\Универ\Диплом\magister-diplom\newAlgorithm\obj\Debug\newAlgorithm.Form1.resources
+F:\Универ\Диплом\magister-diplom\newAlgorithm\obj\Debug\magisterDiplom.Properties.Resources.resources
+F:\Универ\Диплом\magister-diplom\newAlgorithm\obj\Debug\magister-diplom.csproj.GenerateResource.Cache
+F:\Универ\Диплом\magister-diplom\newAlgorithm\obj\Debug\magister-diplom.exe
+F:\Универ\Диплом\magister-diplom\newAlgorithm\obj\Debug\magister-diplom.pdb

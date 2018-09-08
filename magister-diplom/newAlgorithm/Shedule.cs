@@ -17,6 +17,11 @@ namespace newAlgorithm
         private List<List<List<int>>> _endProcessing;
         private List<SheduleElement> _rWithTime;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="r"></param>
+        /// <param name="l"></param>
         public Shedule(List<List<int>> r, int l)
         {
             this._r = r;
@@ -63,6 +68,10 @@ namespace newAlgorithm
             return result;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public List<SheduleElement> RetyrnR()
         {
             _rWithTime = new List<SheduleElement>();
@@ -74,11 +83,18 @@ namespace newAlgorithm
             return _rWithTime;
         }
         
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="r"></param>
         public Shedule(List<List<int>> r)
         {
             _r = GenerateR(r);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void CalculateShedule()
         {
             _startProcessing = new List<List<List<int>>>();
@@ -104,7 +120,6 @@ namespace newAlgorithm
                     }
                 }
             }
-            /**/
             var yy = 0;
             var zz = 0;
             var xx = 0;
@@ -137,67 +152,13 @@ namespace newAlgorithm
                 zz = 0;
                 xx = 0;
             }
-            /**/
-            /*
-            for (var j = 0; j < _r[0].Count; j++)
-            {
-                var index = ReturnRIndex(j);
-                var type = j == 0 ? index : ReturnRIndex(j - 1);
-                var timeToSwitch = (type == index && j != 0) ? 0 : Switching[0][type][index];
-                var timeToTreament = Treatment[0][index];
-                if (j > 0)
-                {
-                    var last = _r[type][j - 1] - 1;
-                    _startProcessing[0][j][0] = _endProcessing[0][j - 1][last];
-                }
-                for (var k = 0; k < _r[index][j]; k++)
-                {
-                    if (k == 0)
-                    {
-                        _startProcessing[0][j][k] += timeToSwitch;
-                    }
-                    else
-                    {
-                        _startProcessing[0][j][k] += _endProcessing[0][j][k - 1];
-                    }
-                    _endProcessing[0][j][k] = _startProcessing[0][j][k] + timeToTreament;
-                }
-            }
-            for (var i = 1; i < L; i++)
-            {
-                for (var j = 0; j < _r[0].Count; j++)
-                {
-                    var index = ReturnRIndex(j);
-                    var type = j == 0 ? index : ReturnRIndex(j - 1);
-                    var timeToSwitch = (type == index && j > 0) ? 0 : Switching[i][type][index];
-                    var timeToTreament = Treatment[i][index];
-                    for (var k = 0; k < _r[index][j]; k++)
-                    {
-                        if (k == 0)
-                        {
-                            if (j > 0)
-                            {
-                                var last = _r[type][j - 1] - 1;
-                                _startProcessing[i][j][k] += Math.Max(_endProcessing[i][j - 1][last] + timeToSwitch,
-                                    _endProcessing[i - 1][j][k]);
-                            }
-                            else
-                            {
-                                _startProcessing[i][j][k] += _endProcessing[i - 1][j][k] + timeToSwitch;
-                            }
-                            
-                        }
-                        else
-                        {
-                            _startProcessing[i][j][k] += Math.Max(_endProcessing[i][j][k - 1], _endProcessing[i - 1][j][k]);
-                        }
-                        _endProcessing[i][j][k] = _startProcessing[i][j][k] + timeToTreament;
-                        _timeConstructShedule = _endProcessing[0][j][k];
-                    }
-                }
-            }*/
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="j"></param>
+        /// <returns></returns>
         public int ReturnRIndex(int j)
         {
             for (var i = 0; i < _r[j].Count; i++)
@@ -208,6 +169,11 @@ namespace newAlgorithm
             return -1;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inMatrix"></param>
+        /// <returns></returns>
         private static List<List<int>> CopyMatrix(IReadOnlyList<List<int>> inMatrix)
         {
             var ret = new List<List<int>>();
@@ -222,6 +188,11 @@ namespace newAlgorithm
             return ret;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ind1"></param>
+        /// <param name="ind2"></param>
         private void ChangeColum(int ind1, int ind2)
         {
             var indd1 = 0;
@@ -247,6 +218,10 @@ namespace newAlgorithm
             _r[ind2][indd1] = temp;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public List<List<int>> ConstructShedule()
         {
             var tempTime = 9999999;
@@ -258,16 +233,21 @@ namespace newAlgorithm
                 for (var j = i + 1; j < _r.Count; j++)
                 {
                     ChangeColum(i, j);
-                    CalculateShedule();
-                    if (tempTime >= _timeConstructShedule) continue;
-                    _r = tempR;
-                    _timeConstructShedule = tempTime;
                 }
+                CalculateShedule();
+                if (tempTime >= _timeConstructShedule) continue;
+                _r = tempR;
+                _timeConstructShedule = tempTime;
             }
             return _r;
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tz"></param>
+        /// <param name="crit"></param>
+        /// <returns></returns>
         public int GetTimeWithCriterium(int tz, out int crit)
         {
             var criterier = 0;
@@ -290,9 +270,12 @@ namespace newAlgorithm
             return _timeConstructShedule;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public int GetTime()
         {
-            
             ConstructShedule();
             return _timeConstructShedule;
         }
