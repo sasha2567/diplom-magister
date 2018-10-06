@@ -351,7 +351,7 @@ namespace newAlgorithm
                             for (var j = 0; j < _a2[i].Count; j++)
                             {
                                 tempA = SetTempAFromA2(i, j);
-                                shedule = new Shedule(tempA);
+                                !!!!!!!!shedule = new Shedule(tempA);
                                 shedule.ConstructShedule();
                                 var fBuf = shedule.GetTime();
                                 s = PrintA(tempA);
@@ -385,7 +385,7 @@ namespace newAlgorithm
                                             {
                                                 tempA = SetTempAFromA2(i, ii);
                                                 tempA[j] = CopyVector(SetTempAFromA2(j, jj)[j]);
-                                                shedule = new Shedule(tempA);
+                                                !!!!!!!!!!!!shedule = new Shedule(tempA);
                                                 shedule.ConstructShedule();
                                                 var fBuf = shedule.GetTime();
                                                 s = PrintA(tempA);
